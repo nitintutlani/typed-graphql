@@ -1,4 +1,4 @@
-declare module graphql {
+declare module "graphql" {
 
 // graphql.js
 
@@ -934,10 +934,4 @@ declare module graphql {
         directives?: Array<GraphQLDirective>;
     }
 
-
-
-}
-
-declare module 'graphql' {
-    export = graphql;
 }
