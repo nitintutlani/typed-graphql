@@ -1,6 +1,6 @@
 {
   "name": "graphql",
-  "main": "graphql-js.d.ts",
+  "main": "graphql.d.ts",
   "author": "Nitin Tutlani <nitintutlani@yahoo.com>",
   "dependencies": {},
   "devDependencies": {}
