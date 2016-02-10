@@ -3,7 +3,7 @@
         "target": "es2015"
     },
     "files": [
-        "graphql-js.d.ts",
+        "graphql.d.ts",
         "typings/main.d.ts"
     ]
 }
