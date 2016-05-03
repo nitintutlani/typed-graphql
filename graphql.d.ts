@@ -11,7 +11,7 @@ declare module "graphql" {
     ): Promise<GraphQLResult>;
 
     interface GraphQLResult {
-        data?: Object;
+        data?: any;
         errors?: Array<GraphQLError>;
     }
 
@@ -55,7 +55,7 @@ declare module "graphql" {
     }
 
     interface ExecutionResult {
-        data: Object;
+        data: any;
         errors?: Array<GraphQLError>;
     }
 
