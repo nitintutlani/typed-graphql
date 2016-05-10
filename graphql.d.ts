@@ -1,937 +1,935 @@
-declare module "graphql" {
 
 // graphql.js
 
-    export function graphql(
-        schema: GraphQLSchema,
-        requestString: string,
-        rootValue?: any,
-        variableValues?: { [key: string]: any },
-        operationName?: string
-    ): Promise<GraphQLResult>;
+export function graphql(
+    schema: GraphQLSchema,
+    requestString: string,
+    rootValue?: any,
+    variableValues?: { [key: string]: any },
+    operationName?: string
+): Promise<GraphQLResult>;
 
-    interface GraphQLResult {
-        data?: Object;
-        errors?: Array<GraphQLError>;
-    }
+interface GraphQLResult {
+    data?: any;
+    errors?: Array<GraphQLError>;
+}
 
 // error/*.js
 
-    class GraphQLError extends Error {
-        constructor(
-            message: string,
-            nodes?: Array<any>,
-            stack?: string,
-            source?: Source,
-            positions?: Array<number>
-        );
-    }
-
-    export function formatError(error: GraphQLError): GraphQLFormattedError;
-
-    interface GraphQLFormattedError {
+class GraphQLError extends Error {
+    constructor(
         message: string,
-        locations: Array<GraphQLErrorLocation>
-    }
+        nodes?: Array<any>,
+        stack?: string,
+        source?: Source,
+        positions?: Array<number>
+    );
+}
 
-    interface GraphQLErrorLocation {
-        line: number,
-        column: number
-    }
+export function formatError(error: GraphQLError): GraphQLFormattedError;
 
-    function locatedError(originalError: Error, nodes: Array<any>): GraphQLError;
+interface GraphQLFormattedError {
+    message: string,
+    locations: Array<GraphQLErrorLocation>
+}
 
-    function syntaxError(source: Source, position: number, description: string): GraphQLError;
+interface GraphQLErrorLocation {
+    line: number,
+    column: number
+}
+
+function locatedError(originalError: Error, nodes: Array<any>): GraphQLError;
+
+function syntaxError(source: Source, position: number, description: string): GraphQLError;
 
 // execution/*.js
 
-    interface ExecutionContext {
-        schema: GraphQLSchema;
-        fragments: {[key: string]: FragmentDefinition};
-        rootValue: any;
-        operation: OperationDefinition;
-        variableValues: {[key: string]: any};
-        errors: Array<GraphQLError>;
-    }
+interface ExecutionContext {
+    schema: GraphQLSchema;
+    fragments: {[key: string]: FragmentDefinition};
+    rootValue: any;
+    operation: OperationDefinition;
+    variableValues: {[key: string]: any};
+    errors: Array<GraphQLError>;
+}
 
-    interface ExecutionResult {
-        data: Object;
-        errors?: Array<GraphQLError>;
-    }
+interface ExecutionResult {
+    data: any;
+    errors?: Array<GraphQLError>;
+}
 
-    function execute(
-        schema: GraphQLSchema,
-        documentAST: Document,
-        rootValue?: any,
-        variableValues?: {[key: string]: any},
-        operationName?: string
-    ): Promise<ExecutionResult>;
+function execute(
+    schema: GraphQLSchema,
+    documentAST: Document,
+    rootValue?: any,
+    variableValues?: {[key: string]: any},
+    operationName?: string
+): Promise<ExecutionResult>;
 
-    function getVariableValues(
-        schema: GraphQLSchema,
-        definitionASTs: Array<VariableDefinition>,
-        inputs: { [key: string]: any }
-    ): { [key: string]: any };
+function getVariableValues(
+    schema: GraphQLSchema,
+    definitionASTs: Array<VariableDefinition>,
+    inputs: { [key: string]: any }
+): { [key: string]: any };
 
-    function getArgumentValues(
-        argDefs: Array<GraphQLArgument>,
-        argASTs: Array<Argument>,
-        variableValues: { [key: string]: any }
-    ): { [key: string]: any };
+function getArgumentValues(
+    argDefs: Array<GraphQLArgument>,
+    argASTs: Array<Argument>,
+    variableValues: { [key: string]: any }
+): { [key: string]: any };
 
 // jsutils/*.js
 
-    function find<T>(list: Array<T>, predicate: (item: T) => boolean): T;
-    function invariant(condition: any, message: string): void;
-    function isNullish(value: any): boolean;
-    function keyMap<T>(
-        list: Array<T>,
-        keyFn: (item: T) => string
-    ): {[key: string]: T};
-    function keyValMap<T, V>(
-        list: Array<T>,
-        keyFn: (item: T) => string,
-        valFn: (item: T) => V
-    ): {[key: string]: V}
+function find<T>(list: Array<T>, predicate: (item: T) => boolean): T;
+function invariant(condition: any, message: string): void;
+function isNullish(value: any): boolean;
+function keyMap<T>(
+    list: Array<T>,
+    keyFn: (item: T) => string
+): {[key: string]: T};
+function keyValMap<T, V>(
+    list: Array<T>,
+    keyFn: (item: T) => string,
+    valFn: (item: T) => V
+): {[key: string]: V}
 
 // language/ast.js
-    interface Location {
-        start: number;
-        end: number;
-        source?: Source
-    }
+interface Location {
+    start: number;
+    end: number;
+    source?: Source
+}
 
-    type Node = Name
-                 | Document
-                 | OperationDefinition
-                 | VariableDefinition
-                 | Variable
-                 | SelectionSet
-                 | Field
-                 | Argument
-                 | FragmentSpread
-                 | InlineFragment
-                 | FragmentDefinition
-                 | IntValue
-                 | FloatValue
-                 | StringValue
-                 | BooleanValue
-                 | EnumValue
-                 | ListValue
-                 | ObjectValue
-                 | ObjectField
-                 | Directive
-                 | ListType
-                 | NonNullType
-                 | ObjectTypeDefinition
-                 | FieldDefinition
-                 | InputValueDefinition
-                 | InterfaceTypeDefinition
-                 | UnionTypeDefinition
-                 | ScalarTypeDefinition
-                 | EnumTypeDefinition
-                 | EnumValueDefinition
-                 | InputObjectTypeDefinition
-                 | TypeExtensionDefinition;
+type Node = Name
+             | Document
+             | OperationDefinition
+             | VariableDefinition
+             | Variable
+             | SelectionSet
+             | Field
+             | Argument
+             | FragmentSpread
+             | InlineFragment
+             | FragmentDefinition
+             | IntValue
+             | FloatValue
+             | StringValue
+             | BooleanValue
+             | EnumValue
+             | ListValue
+             | ObjectValue
+             | ObjectField
+             | Directive
+             | ListType
+             | NonNullType
+             | ObjectTypeDefinition
+             | FieldDefinition
+             | InputValueDefinition
+             | InterfaceTypeDefinition
+             | UnionTypeDefinition
+             | ScalarTypeDefinition
+             | EnumTypeDefinition
+             | EnumValueDefinition
+             | InputObjectTypeDefinition
+             | TypeExtensionDefinition;
 
-    interface Name {
-        kind: string;
-        loc?: Location;
-        value: string;
-    }
-
-    interface Document {
-        kind: string;
-        loc?: Location;
-        definitions: Array<Definition>;
-    }
-
-    type Definition = OperationDefinition
-                | FragmentDefinition
-                | TypeDefinition;
-
-    interface OperationDefinition {
-        kind: string;
-        loc?: Location;
-        // Note: subscription is an experimental non-spec addition.
-        operation: string;
-        name?: Name;
-        variableDefinitions?: Array<VariableDefinition>;
-        directives?: Array<Directive>;
-        selectionSet: SelectionSet;
-    }
-
-    interface VariableDefinition {
-        kind: string;
-        loc?: Location;
-        variable: Variable;
-        type: Type;
-        defaultValue?: Value;
-    }
-
-    interface Variable {
-        kind: string;
-        loc?: Location;
-        name: Name;
-    }
-
-    interface SelectionSet {
-        kind: string;
-        loc?: Location;
-        selections: Array<Selection>;
-    }
-
-    type Selection = Field
-                | FragmentSpread
-                | InlineFragment;
-
-    interface Field {
-        kind: string;
-        loc?: Location;
-        alias?: Name;
-        name: Name;
-        arguments?: Array<Argument>;
-        directives?: Array<Directive>;
-        selectionSet?: SelectionSet;
-    }
-
-    interface Argument {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        value: Value;
-    }
-
-
-    // Fragments
-
-    interface FragmentSpread {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        directives?: Array<Directive>;
-    }
-
-    interface InlineFragment {
-        kind: string;
-        loc?: Location;
-        typeCondition?: NamedType;
-        directives?: Array<Directive>;
-        selectionSet: SelectionSet;
-    }
-
-    interface FragmentDefinition {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        typeCondition: NamedType;
-        directives?: Array<Directive>;
-        selectionSet: SelectionSet;
-    }
-
-
-    // Values
-
-    type Value = Variable
-                | IntValue
-                | FloatValue
-                | StringValue
-                | BooleanValue
-                | EnumValue
-                | ListValue
-                | ObjectValue;
-
-    interface IntValue {
-        kind: string;
-        loc?: Location;
-        value: string;
-    }
-
-    interface FloatValue {
-        kind: string;
-        loc?: Location;
-        value: string;
-    }
-
-    interface StringValue {
-        kind: string;
-        loc?: Location;
-        value: string;
-    }
-
-    interface BooleanValue {
+interface Name {
     kind: string;
     loc?: Location;
-    value: boolean;
-    }
+    value: string;
+}
 
-    interface EnumValue {
-        kind: string;
-        loc?: Location;
-        value: string;
-    }
+interface Document {
+    kind: string;
+    loc?: Location;
+    definitions: Array<Definition>;
+}
 
-    interface ListValue {
-        kind: string;
-        loc?: Location;
-        values: Array<Value>;
-    }
+type Definition = OperationDefinition
+            | FragmentDefinition
+            | TypeDefinition;
 
-    interface ObjectValue {
-        kind: string;
-        loc?: Location;
-        fields: Array<ObjectField>;
-    }
+interface OperationDefinition {
+    kind: string;
+    loc?: Location;
+    // Note: subscription is an experimental non-spec addition.
+    operation: string;
+    name?: Name;
+    variableDefinitions?: Array<VariableDefinition>;
+    directives?: Array<Directive>;
+    selectionSet: SelectionSet;
+}
 
-    interface ObjectField {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        value: Value;
-    }
+interface VariableDefinition {
+    kind: string;
+    loc?: Location;
+    variable: Variable;
+    type: Type;
+    defaultValue?: Value;
+}
+
+interface Variable {
+    kind: string;
+    loc?: Location;
+    name: Name;
+}
+
+interface SelectionSet {
+    kind: string;
+    loc?: Location;
+    selections: Array<Selection>;
+}
+
+type Selection = Field
+            | FragmentSpread
+            | InlineFragment;
+
+interface Field {
+    kind: string;
+    loc?: Location;
+    alias?: Name;
+    name: Name;
+    arguments?: Array<Argument>;
+    directives?: Array<Directive>;
+    selectionSet?: SelectionSet;
+}
+
+interface Argument {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    value: Value;
+}
 
 
-    // Directives
+// Fragments
 
-    interface Directive {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        arguments?: Array<Argument>;
-    }
+interface FragmentSpread {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    directives?: Array<Directive>;
+}
+
+interface InlineFragment {
+    kind: string;
+    loc?: Location;
+    typeCondition?: NamedType;
+    directives?: Array<Directive>;
+    selectionSet: SelectionSet;
+}
+
+interface FragmentDefinition {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    typeCondition: NamedType;
+    directives?: Array<Directive>;
+    selectionSet: SelectionSet;
+}
 
 
-    // Type Reference
+// Values
 
-    type Type = NamedType
-                | ListType
-                | NonNullType;
+type Value = Variable
+            | IntValue
+            | FloatValue
+            | StringValue
+            | BooleanValue
+            | EnumValue
+            | ListValue
+            | ObjectValue;
 
-    interface NamedType {
-        kind: string;
-        loc?: Location;
-        name: Name;
-    }
+interface IntValue {
+    kind: string;
+    loc?: Location;
+    value: string;
+}
 
-    interface ListType {
-        kind: string;
-        loc?: Location;
-        type: Type;
-    }
+interface FloatValue {
+    kind: string;
+    loc?: Location;
+    value: string;
+}
 
-    interface NonNullType {
-        kind: string;
-        loc?: Location;
-        type: NamedType | ListType;
-    }
+interface StringValue {
+    kind: string;
+    loc?: Location;
+    value: string;
+}
 
-    // Type Definition
+interface BooleanValue {
+kind: string;
+loc?: Location;
+value: boolean;
+}
 
-    type TypeDefinition = ObjectTypeDefinition
-                        | InterfaceTypeDefinition
-                        | UnionTypeDefinition
-                        | ScalarTypeDefinition
-                        | EnumTypeDefinition
-                        | InputObjectTypeDefinition
-                        | TypeExtensionDefinition;
+interface EnumValue {
+    kind: string;
+    loc?: Location;
+    value: string;
+}
 
-    interface ObjectTypeDefinition {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        interfaces?: Array<NamedType>;
-        fields: Array<FieldDefinition>;
-    }
+interface ListValue {
+    kind: string;
+    loc?: Location;
+    values: Array<Value>;
+}
 
-    interface FieldDefinition {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        arguments: Array<InputValueDefinition>;
-        type: Type;
-    }
+interface ObjectValue {
+    kind: string;
+    loc?: Location;
+    fields: Array<ObjectField>;
+}
 
-    interface InputValueDefinition {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        type: Type;
-        defaultValue?: Value;
-    }
+interface ObjectField {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    value: Value;
+}
 
-    interface InterfaceTypeDefinition {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        fields: Array<FieldDefinition>;
-    }
 
-    interface UnionTypeDefinition {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        types: Array<NamedType>;
-    }
+// Directives
 
-    interface ScalarTypeDefinition {
-        kind: string;
-        loc?: Location;
-        name: Name;
-    }
+interface Directive {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    arguments?: Array<Argument>;
+}
 
-    interface EnumTypeDefinition {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        values: Array<EnumValueDefinition>;
-    }
 
-    interface EnumValueDefinition {
-        kind: string;
-        loc?: Location;
-        name: Name;
-    }
+// Type Reference
 
-    interface InputObjectTypeDefinition {
-        kind: string;
-        loc?: Location;
-        name: Name;
-        fields: Array<InputValueDefinition>;
-    }
+type Type = NamedType
+            | ListType
+            | NonNullType;
 
-    interface TypeExtensionDefinition {
-        kind: string;
-        loc?: Location;
-        definition: ObjectTypeDefinition;
-    }
+interface NamedType {
+    kind: string;
+    loc?: Location;
+    name: Name;
+}
+
+interface ListType {
+    kind: string;
+    loc?: Location;
+    type: Type;
+}
+
+interface NonNullType {
+    kind: string;
+    loc?: Location;
+    type: NamedType | ListType;
+}
+
+// Type Definition
+
+type TypeDefinition = ObjectTypeDefinition
+                    | InterfaceTypeDefinition
+                    | UnionTypeDefinition
+                    | ScalarTypeDefinition
+                    | EnumTypeDefinition
+                    | InputObjectTypeDefinition
+                    | TypeExtensionDefinition;
+
+interface ObjectTypeDefinition {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    interfaces?: Array<NamedType>;
+    fields: Array<FieldDefinition>;
+}
+
+interface FieldDefinition {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    arguments: Array<InputValueDefinition>;
+    type: Type;
+}
+
+interface InputValueDefinition {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    type: Type;
+    defaultValue?: Value;
+}
+
+interface InterfaceTypeDefinition {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    fields: Array<FieldDefinition>;
+}
+
+interface UnionTypeDefinition {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    types: Array<NamedType>;
+}
+
+interface ScalarTypeDefinition {
+    kind: string;
+    loc?: Location;
+    name: Name;
+}
+
+interface EnumTypeDefinition {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    values: Array<EnumValueDefinition>;
+}
+
+interface EnumValueDefinition {
+    kind: string;
+    loc?: Location;
+    name: Name;
+}
+
+interface InputObjectTypeDefinition {
+    kind: string;
+    loc?: Location;
+    name: Name;
+    fields: Array<InputValueDefinition>;
+}
+
+interface TypeExtensionDefinition {
+    kind: string;
+    loc?: Location;
+    definition: ObjectTypeDefinition;
+}
 
 // language/kinds.js
 
-    const NAME: string;
+const NAME: string;
 
-    // Document
+// Document
 
-    const DOCUMENT: string;
-    const OPERATION_DEFINITION: string;
-    const VARIABLE_DEFINITION: string;
-    const VARIABLE: string;
-    const SELECTION_SET: string;
-    const FIELD: string;
-    const ARGUMENT: string;
+const DOCUMENT: string;
+const OPERATION_DEFINITION: string;
+const VARIABLE_DEFINITION: string;
+const VARIABLE: string;
+const SELECTION_SET: string;
+const FIELD: string;
+const ARGUMENT: string;
 
-    // Fragments
+// Fragments
 
-    const FRAGMENT_SPREAD: string;
-    const INLINE_FRAGMENT: string;
-    const FRAGMENT_DEFINITION: string;
+const FRAGMENT_SPREAD: string;
+const INLINE_FRAGMENT: string;
+const FRAGMENT_DEFINITION: string;
 
-    // Values
+// Values
 
-    const INT: string;
-    const FLOAT: string;
-    const STRING: string;
-    const BOOLEAN: string;
-    const ENUM: string;
-    const LIST: string;
-    const OBJECT: string;
-    const OBJECT_FIELD: string;
+const INT: string;
+const FLOAT: string;
+const STRING: string;
+const BOOLEAN: string;
+const ENUM: string;
+const LIST: string;
+const OBJECT: string;
+const OBJECT_FIELD: string;
 
-    // Directives
+// Directives
 
-    const DIRECTIVE: string;
+const DIRECTIVE: string;
 
-    // Types
+// Types
 
-    const NAMED_TYPE: string;
-    const LIST_TYPE: string;
-    const NON_NULL_TYPE: string;
+const NAMED_TYPE: string;
+const LIST_TYPE: string;
+const NON_NULL_TYPE: string;
 
-    // Type Definitions
+// Type Definitions
 
-    const OBJECT_TYPE_DEFINITION: string;
-    const FIELD_DEFINITION: string;
-    const INPUT_VALUE_DEFINITION: string;
-    const INTERFACE_TYPE_DEFINITION: string;
-    const UNION_TYPE_DEFINITION: string;
-    const SCALAR_TYPE_DEFINITION: string;
-    const ENUM_TYPE_DEFINITION: string;
-    const ENUM_VALUE_DEFINITION: string;
-    const INPUT_OBJECT_TYPE_DEFINITION: string;
-    const TYPE_EXTENSION_DEFINITION: string;
+const OBJECT_TYPE_DEFINITION: string;
+const FIELD_DEFINITION: string;
+const INPUT_VALUE_DEFINITION: string;
+const INTERFACE_TYPE_DEFINITION: string;
+const UNION_TYPE_DEFINITION: string;
+const SCALAR_TYPE_DEFINITION: string;
+const ENUM_TYPE_DEFINITION: string;
+const ENUM_VALUE_DEFINITION: string;
+const INPUT_OBJECT_TYPE_DEFINITION: string;
+const TYPE_EXTENSION_DEFINITION: string;
 
 // language/lexer.js
 
-    interface Token {
-        kind: number;
-        start: number;
-        end: number;
-        value: string;
-    }
+interface Token {
+    kind: number;
+    start: number;
+    end: number;
+    value: string;
+}
 
-    type Lexer = (resetPosition?: number) => Token;
+type Lexer = (resetPosition?: number) => Token;
 
-    function lex(source: Source): Lexer;
+function lex(source: Source): Lexer;
 
-    type TokenKind = {[key: string]: number};
+type TokenKind = {[key: string]: number};
 
-    function getTokenDesc(token: Token): string;
-    function getTokenKindDesc(kind: number): string;
+function getTokenDesc(token: Token): string;
+function getTokenKindDesc(kind: number): string;
 
 // language/location.js
 
-    interface SourceLocation {
-        line: number;
-        column: number;
-    }
+interface SourceLocation {
+    line: number;
+    column: number;
+}
 
-    function getLocation(source: Source, position: number): SourceLocation;
+function getLocation(source: Source, position: number): SourceLocation;
 
 // language/parser.js
 
-    interface ParseOptions {
-        noLocation?: boolean,
-        noSource?: boolean,
-    }
+interface ParseOptions {
+    noLocation?: boolean,
+    noSource?: boolean,
+}
 
-    function parse(
-        source: Source | string,
-        options?: ParseOptions
-    ): Document;
+function parse(
+    source: Source | string,
+    options?: ParseOptions
+): Document;
 
-    function parseValue(
-        source: Source | string,
-        options?: ParseOptions
-    ): Value;
+function parseValue(
+    source: Source | string,
+    options?: ParseOptions
+): Value;
 
-    function parseConstValue(parser: any): Value;
+function parseConstValue(parser: any): Value;
 
-    function parseType(parser: any): Type;
+function parseType(parser: any): Type;
 
-    function parseNamedType(parser: any): NamedType;
+function parseNamedType(parser: any): NamedType;
 
 // language/printer.js
 
-    function print(ast: any): string;
+function print(ast: any): string;
 
 // language/source.js
 
-    class Source {
-        body: string;
-        name: string;
-        constructor(body: string, name?: string);
-    }
+class Source {
+    body: string;
+    name: string;
+    constructor(body: string, name?: string);
+}
 
 // language/visitor.js
 
-    interface QueryDocumentKeys {
-        Name: any[];
-        Document: string[];
-        OperationDefinition: string[];
-        VariableDefinition: string[];
-        Variable: string[];
-        SelectionSet: string[];
-        Field: string[];
-        Argument: string[];
+interface QueryDocumentKeys {
+    Name: any[];
+    Document: string[];
+    OperationDefinition: string[];
+    VariableDefinition: string[];
+    Variable: string[];
+    SelectionSet: string[];
+    Field: string[];
+    Argument: string[];
 
-        FragmentSpread: string[];
-        InlineFragment: string[];
-        FragmentDefinition: string[];
+    FragmentSpread: string[];
+    InlineFragment: string[];
+    FragmentDefinition: string[];
 
-        IntValue: number[];
-        FloatValue: number[];
-        StringValue: string[];
-        BooleanValue: boolean[];
-        EnumValue: any[];
-        ListValue: string[];
-        ObjectValue: string[];
-        ObjectField: string[];
+    IntValue: number[];
+    FloatValue: number[];
+    StringValue: string[];
+    BooleanValue: boolean[];
+    EnumValue: any[];
+    ListValue: string[];
+    ObjectValue: string[];
+    ObjectField: string[];
 
-        Directive: string[];
+    Directive: string[];
 
-        NamedType: string[];
-        ListType: string[];
-        NonNullType: string[];
+    NamedType: string[];
+    ListType: string[];
+    NonNullType: string[];
 
-        ObjectTypeDefinition: string[];
-        FieldDefinition: string[];
-        InputValueDefinition: string[];
-        InterfaceTypeDefinition: string[];
-        UnionTypeDefinition: string[];
-        ScalarTypeDefinition: string[];
-        EnumTypeDefinition: string[];
-        EnumValueDefinition: string[];
-        InputObjectTypeDefinition: string[];
-        TypeExtensionDefinition: string[];
-    }
+    ObjectTypeDefinition: string[];
+    FieldDefinition: string[];
+    InputValueDefinition: string[];
+    InterfaceTypeDefinition: string[];
+    UnionTypeDefinition: string[];
+    ScalarTypeDefinition: string[];
+    EnumTypeDefinition: string[];
+    EnumValueDefinition: string[];
+    InputObjectTypeDefinition: string[];
+    TypeExtensionDefinition: string[];
+}
 
-    const BREAK: Object;
+const BREAK: Object;
 
-    function visit(root: any, visitor: any, keyMap: any): any;
+function visit(root: any, visitor: any, keyMap: any): any;
 
-    function visitInParallel(visitors: any): any;
+function visitInParallel(visitors: any): any;
 
-    function visitWithTypeInfo(typeInfo: any, visitor: any): any;
+function visitWithTypeInfo(typeInfo: any, visitor: any): any;
 
 // type/definition.js
 
-    type GraphQLType =
-        GraphQLScalarType |
-        GraphQLObjectType |
-        GraphQLInterfaceType |
-        GraphQLUnionType |
-        GraphQLEnumType |
-        GraphQLInputObjectType |
-        GraphQLList |
-        GraphQLNonNull;
+type GraphQLType =
+    GraphQLScalarType |
+    GraphQLObjectType |
+    GraphQLInterfaceType |
+    GraphQLUnionType |
+    GraphQLEnumType |
+    GraphQLInputObjectType |
+    GraphQLList |
+    GraphQLNonNull;
 
-    function isType(type: any): boolean;
+function isType(type: any): boolean;
 
-    type GraphQLInputType =
-        GraphQLScalarType |
-        GraphQLEnumType |
-        GraphQLInputObjectType |
-        GraphQLList |
-        GraphQLNonNull;
+type GraphQLInputType =
+    GraphQLScalarType |
+    GraphQLEnumType |
+    GraphQLInputObjectType |
+    GraphQLList |
+    GraphQLNonNull;
 
-    function isInputType(type: GraphQLType): boolean;
+function isInputType(type: GraphQLType): boolean;
 
-    type GraphQLOutputType =
-        GraphQLScalarType |
-        GraphQLObjectType |
-        GraphQLInterfaceType |
-        GraphQLUnionType |
-        GraphQLEnumType |
-        GraphQLList |
-        GraphQLNonNull;
+type GraphQLOutputType =
+    GraphQLScalarType |
+    GraphQLObjectType |
+    GraphQLInterfaceType |
+    GraphQLUnionType |
+    GraphQLEnumType |
+    GraphQLList |
+    GraphQLNonNull;
 
-    function isOutputType(type: GraphQLType): boolean;
+function isOutputType(type: GraphQLType): boolean;
 
-    type GraphQLLeafType =
-        GraphQLScalarType |
-        GraphQLEnumType;
+type GraphQLLeafType =
+    GraphQLScalarType |
+    GraphQLEnumType;
 
-    function isLeafType(type: GraphQLType): boolean;
+function isLeafType(type: GraphQLType): boolean;
 
-    type GraphQLCompositeType =
-        GraphQLObjectType |
-        GraphQLInterfaceType |
-        GraphQLUnionType;
+type GraphQLCompositeType =
+    GraphQLObjectType |
+    GraphQLInterfaceType |
+    GraphQLUnionType;
 
-    function isCompositeType(type: GraphQLType): boolean;
+function isCompositeType(type: GraphQLType): boolean;
 
-    type GraphQLAbstractType =
-        GraphQLInterfaceType |
-        GraphQLUnionType;
+type GraphQLAbstractType =
+    GraphQLInterfaceType |
+    GraphQLUnionType;
 
-    function isAbstractType(type: GraphQLType): boolean;
+function isAbstractType(type: GraphQLType): boolean;
 
-    type GraphQLNullableType =
-        GraphQLScalarType |
-        GraphQLObjectType |
-        GraphQLInterfaceType |
-        GraphQLUnionType |
-        GraphQLEnumType |
-        GraphQLInputObjectType |
-        GraphQLList;
+type GraphQLNullableType =
+    GraphQLScalarType |
+    GraphQLObjectType |
+    GraphQLInterfaceType |
+    GraphQLUnionType |
+    GraphQLEnumType |
+    GraphQLInputObjectType |
+    GraphQLList;
 
-    function getNullableType(type: GraphQLType): GraphQLNullableType;
+function getNullableType(type: GraphQLType): GraphQLNullableType;
 
-    type GraphQLNamedType =
-        GraphQLScalarType |
-        GraphQLObjectType |
-        GraphQLInterfaceType |
-        GraphQLUnionType |
-        GraphQLEnumType |
-        GraphQLInputObjectType;
+type GraphQLNamedType =
+    GraphQLScalarType |
+    GraphQLObjectType |
+    GraphQLInterfaceType |
+    GraphQLUnionType |
+    GraphQLEnumType |
+    GraphQLInputObjectType;
 
-    function getNamedType(type: GraphQLType): GraphQLNamedType;
+function getNamedType(type: GraphQLType): GraphQLNamedType;
 
-    export class GraphQLScalarType {
-        constructor(config: GraphQLScalarTypeConfig);
-        serialize(value: any): any;
-        parseValue(value: any): any;
-        parseLiteral(valueAST: Value): any;
-        toString(): string;
-    }
+export class GraphQLScalarType {
+    constructor(config: GraphQLScalarTypeConfig);
+    serialize(value: any): any;
+    parseValue(value: any): any;
+    parseLiteral(valueAST: Value): any;
+    toString(): string;
+}
 
-    interface GraphQLScalarTypeConfig {
-        name: string;
-        description?: string;
-        serialize: (value: any) => any;
-        parseValue: (value: any) => any;
-        parseLiteral: (valueAST: Value) => any;
-    }
+interface GraphQLScalarTypeConfig {
+    name: string;
+    description?: string;
+    serialize: (value: any) => any;
+    parseValue: (value: any) => any;
+    parseLiteral: (valueAST: Value) => any;
+}
 
-    export class GraphQLObjectType {
-        constructor(config: GraphQLObjectTypeConfig);
-        getFields(): GraphQLFieldDefinitionMap;
-        getInterfaces(): Array<GraphQLInterfaceType>;
-        toString(): string;
-    }
+export class GraphQLObjectType {
+    constructor(config: GraphQLObjectTypeConfig);
+    getFields(): GraphQLFieldDefinitionMap;
+    getInterfaces(): Array<GraphQLInterfaceType>;
+    toString(): string;
+}
 
-    interface GraphQLObjectTypeConfig {
-        name: string;
-        interfaces?: GraphQLInterfacesThunk | Array<GraphQLInterfaceType>;
-        fields: GraphQLFieldConfigMapThunk | GraphQLFieldConfigMap;
-        isTypeOf?: (value: any, info?: GraphQLResolveInfo) => boolean;
-        description?: string
-    }
+interface GraphQLObjectTypeConfig {
+    name: string;
+    interfaces?: GraphQLInterfacesThunk | Array<GraphQLInterfaceType>;
+    fields: GraphQLFieldConfigMapThunk | GraphQLFieldConfigMap;
+    isTypeOf?: (value: any, info?: GraphQLResolveInfo) => boolean;
+    description?: string
+}
 
-    type GraphQLInterfacesThunk = () => Array<GraphQLInterfaceType>;
+type GraphQLInterfacesThunk = () => Array<GraphQLInterfaceType>;
 
-    type GraphQLFieldConfigMapThunk = () => GraphQLFieldConfigMap;
+type GraphQLFieldConfigMapThunk = () => GraphQLFieldConfigMap;
 
-    type GraphQLFieldResolveFn = (
-        source?: any,
-        args?: { [argName: string]: any },
-        info?: GraphQLResolveInfo
-    ) => any;
+type GraphQLFieldResolveFn = (
+    source?: any,
+    args?: { [argName: string]: any },
+    info?: GraphQLResolveInfo
+) => any;
 
-    interface GraphQLResolveInfo {
-        fieldName: string,
-        fieldASTs: Array<Field>,
-        returnType: GraphQLOutputType,
-        parentType: GraphQLCompositeType,
-        schema: GraphQLSchema,
-        fragments: { [fragmentName: string]: FragmentDefinition },
-        rootValue: any,
-        operation: OperationDefinition,
-        variableValues: { [variableName: string]: any },
-    }
+interface GraphQLResolveInfo {
+    fieldName: string,
+    fieldASTs: Array<Field>,
+    returnType: GraphQLOutputType,
+    parentType: GraphQLCompositeType,
+    schema: GraphQLSchema,
+    fragments: { [fragmentName: string]: FragmentDefinition },
+    rootValue: any,
+    operation: OperationDefinition,
+    variableValues: { [variableName: string]: any },
+}
 
-    interface GraphQLFieldConfig {
-        type: GraphQLOutputType;
-        args?: GraphQLFieldConfigArgumentMap;
-        resolve?: GraphQLFieldResolveFn;
-        deprecationReason?: string;
-        description?: string;
-    }
+interface GraphQLFieldConfig {
+    type: GraphQLOutputType;
+    args?: GraphQLFieldConfigArgumentMap;
+    resolve?: GraphQLFieldResolveFn;
+    deprecationReason?: string;
+    description?: string;
+}
 
-    interface GraphQLFieldConfigArgumentMap {
-        [argName: string]: GraphQLArgumentConfig;
-    }
+interface GraphQLFieldConfigArgumentMap {
+    [argName: string]: GraphQLArgumentConfig;
+}
 
-    interface GraphQLArgumentConfig {
-        type: GraphQLInputType;
-        defaultValue?: any;
-        description?: string;
-    }
+interface GraphQLArgumentConfig {
+    type: GraphQLInputType;
+    defaultValue?: any;
+    description?: string;
+}
 
-    interface GraphQLFieldConfigMap {
-        [fieldName: string]: GraphQLFieldConfig;
-    }
+interface GraphQLFieldConfigMap {
+    [fieldName: string]: GraphQLFieldConfig;
+}
 
-    interface GraphQLFieldDefinition {
-        name: string;
-        description: string;
-        type: GraphQLOutputType;
-        args: Array<GraphQLArgument>;
-        resolve?: GraphQLFieldResolveFn;
-        deprecationReason?: string;
-    }
+interface GraphQLFieldDefinition {
+    name: string;
+    description: string;
+    type: GraphQLOutputType;
+    args: Array<GraphQLArgument>;
+    resolve?: GraphQLFieldResolveFn;
+    deprecationReason?: string;
+}
 
-    interface GraphQLArgument {
-        name: string;
-        type: GraphQLInputType;
-        defaultValue?: any;
-        description?: string;
-    }
+interface GraphQLArgument {
+    name: string;
+    type: GraphQLInputType;
+    defaultValue?: any;
+    description?: string;
+}
 
-    interface GraphQLFieldDefinitionMap {
-        [fieldName: string]: GraphQLFieldDefinition;
-    }
+interface GraphQLFieldDefinitionMap {
+    [fieldName: string]: GraphQLFieldDefinition;
+}
 
-    export class GraphQLInterfaceType {
-        name: string;
-        description: string;
-        resolveType: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
-        constructor(config: GraphQLInterfaceTypeConfig);
-        getFields(): GraphQLFieldDefinitionMap;
-        getPossibleTypes(): Array<GraphQLObjectType>;
-        isPossibleType(type: GraphQLObjectType): boolean;
-        getObjectType(value: any, info: GraphQLResolveInfo): GraphQLObjectType;
-        toString(): string;
-    }
+export class GraphQLInterfaceType {
+    name: string;
+    description: string;
+    resolveType: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
+    constructor(config: GraphQLInterfaceTypeConfig);
+    getFields(): GraphQLFieldDefinitionMap;
+    getPossibleTypes(): Array<GraphQLObjectType>;
+    isPossibleType(type: GraphQLObjectType): boolean;
+    getObjectType(value: any, info: GraphQLResolveInfo): GraphQLObjectType;
+    toString(): string;
+}
 
-    interface GraphQLInterfaceTypeConfig {
-        name: string;
-        fields: GraphQLFieldConfigMapThunk | GraphQLFieldConfigMap;
-        resolveType?: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
-        description?: string;
-    }
+interface GraphQLInterfaceTypeConfig {
+    name: string;
+    fields: GraphQLFieldConfigMapThunk | GraphQLFieldConfigMap;
+    resolveType?: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
+    description?: string;
+}
 
-    export class GraphQLUnionType {
-        name: string;
-        description: string;
-        resolveType: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
-        constructor(config: GraphQLUnionTypeConfig);
-        getPossibleTypes(): Array<GraphQLObjectType>;
-        isPossibleType(type: GraphQLObjectType): boolean;
-        getObjectType(value: any, info: GraphQLResolveInfo): GraphQLObjectType;
-        toString(): string;
-    }
+export class GraphQLUnionType {
+    name: string;
+    description: string;
+    resolveType: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
+    constructor(config: GraphQLUnionTypeConfig);
+    getPossibleTypes(): Array<GraphQLObjectType>;
+    isPossibleType(type: GraphQLObjectType): boolean;
+    getObjectType(value: any, info: GraphQLResolveInfo): GraphQLObjectType;
+    toString(): string;
+}
 
 
-    interface GraphQLUnionTypeConfig {
-        name: string,
-        types: Array<GraphQLObjectType>,
-        /**
-         * Optionally provide a custom type resolver function. If one is not provided,
-         * the default implementation will call `isTypeOf` on each implementing
-         * Object type.
-         */
-        resolveType?: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
-        description?: string;
-    }
+interface GraphQLUnionTypeConfig {
+    name: string,
+    types: Array<GraphQLObjectType>,
+    /**
+     * Optionally provide a custom type resolver function. If one is not provided,
+     * the default implementation will call `isTypeOf` on each implementing
+     * Object type.
+     */
+    resolveType?: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
+    description?: string;
+}
 
-    export class GraphQLEnumType {
-        name: string;
-        description: string;
-        constructor(config: GraphQLEnumTypeConfig);
-        getValues(): Array<GraphQLEnumValueDefinition>;
-        serialize(value: any): string;
-        parseValue(value: any): any;
-        parseLiteral(valueAST: Value): any;
-        toString(): string;
-    }
+export class GraphQLEnumType {
+    name: string;
+    description: string;
+    constructor(config: GraphQLEnumTypeConfig);
+    getValues(): Array<GraphQLEnumValueDefinition>;
+    serialize(value: any): string;
+    parseValue(value: any): any;
+    parseLiteral(valueAST: Value): any;
+    toString(): string;
+}
 
-    interface GraphQLEnumTypeConfig {
-        name: string;
-        values: GraphQLEnumValueConfigMap;
-        description?: string;
-    }
+interface GraphQLEnumTypeConfig {
+    name: string;
+    values: GraphQLEnumValueConfigMap;
+    description?: string;
+}
 
-    interface GraphQLEnumValueConfigMap {
-        [valueName: string]: GraphQLEnumValueConfig;
-    }
+interface GraphQLEnumValueConfigMap {
+    [valueName: string]: GraphQLEnumValueConfig;
+}
 
-    interface GraphQLEnumValueConfig {
-        value?: any;
-        deprecationReason?: string;
-        description?: string;
-    }
+interface GraphQLEnumValueConfig {
+    value?: any;
+    deprecationReason?: string;
+    description?: string;
+}
 
-    interface GraphQLEnumValueDefinition {
-        name: string;
-        description: string;
-        deprecationReason: string;
-        value: any;
-    }
+interface GraphQLEnumValueDefinition {
+    name: string;
+    description: string;
+    deprecationReason: string;
+    value: any;
+}
 
-    export class GraphQLInputObjectType {
-        name: string;
-        description: string;
-        constructor(config: InputObjectConfig);
-        getFields(): InputObjectFieldMap;
-        toString(): string;
-    }
+export class GraphQLInputObjectType {
+    name: string;
+    description: string;
+    constructor(config: InputObjectConfig);
+    getFields(): InputObjectFieldMap;
+    toString(): string;
+}
 
-    interface InputObjectConfig {
-        name: string;
-        fields: InputObjectConfigFieldMapThunk | InputObjectConfigFieldMap;
-        description?: string;
-    }
+interface InputObjectConfig {
+    name: string;
+    fields: InputObjectConfigFieldMapThunk | InputObjectConfigFieldMap;
+    description?: string;
+}
 
-    type InputObjectConfigFieldMapThunk = () => InputObjectConfigFieldMap;
+type InputObjectConfigFieldMapThunk = () => InputObjectConfigFieldMap;
 
-    interface InputObjectFieldConfig {
-        type: GraphQLInputType;
-        defaultValue?: any;
-        description?: string;
-    }
+interface InputObjectFieldConfig {
+    type: GraphQLInputType;
+    defaultValue?: any;
+    description?: string;
+}
 
-    interface InputObjectConfigFieldMap {
-        [fieldName: string]: InputObjectFieldConfig;
-    }
+interface InputObjectConfigFieldMap {
+    [fieldName: string]: InputObjectFieldConfig;
+}
 
-    interface InputObjectField {
-        name: string;
-        type: GraphQLInputType;
-        defaultValue?: any;
-        description?: string;
-    }
+interface InputObjectField {
+    name: string;
+    type: GraphQLInputType;
+    defaultValue?: any;
+    description?: string;
+}
 
-    interface InputObjectFieldMap {
-        [fieldName: string]: InputObjectField;
-    }
+interface InputObjectFieldMap {
+    [fieldName: string]: InputObjectField;
+}
 
-    export class GraphQLList {
-        ofType: GraphQLType;
-        constructor(type: GraphQLType);
-        toString(): string;
-    }
+export class GraphQLList {
+    ofType: GraphQLType;
+    constructor(type: GraphQLType);
+    toString(): string;
+}
 
-    export class GraphQLNonNull {
-        ofType: GraphQLNullableType;
-        constructor(type: GraphQLNullableType);
-        toString(): string;
-    }
+export class GraphQLNonNull {
+    ofType: GraphQLNullableType;
+    constructor(type: GraphQLNullableType);
+    toString(): string;
+}
 
 // type/directives.js
 
-    class GraphQLDirective {
-        name: string;
-        description: string;
-        args: Array<GraphQLArgument>;
-        onOperation: boolean;
-        onFragment: boolean;
-        onField: boolean;
-        constructor(config: GraphQLDirectiveConfig);
-    }
+class GraphQLDirective {
+    name: string;
+    description: string;
+    args: Array<GraphQLArgument>;
+    onOperation: boolean;
+    onFragment: boolean;
+    onField: boolean;
+    constructor(config: GraphQLDirectiveConfig);
+}
 
-    interface GraphQLDirectiveConfig {
-        name: string;
-        description?: string;
-        args?: Array<GraphQLArgument>;
-        onOperation?: boolean;
-        onFragment?: boolean;
-        onField?: boolean;
-    }
+interface GraphQLDirectiveConfig {
+    name: string;
+    description?: string;
+    args?: Array<GraphQLArgument>;
+    onOperation?: boolean;
+    onFragment?: boolean;
+    onField?: boolean;
+}
 
-    export var GraphQLIncludeDirective: GraphQLDirective;
+export var GraphQLIncludeDirective: GraphQLDirective;
 
-    export var GraphQLSkipDirective: GraphQLDirective;
+export var GraphQLSkipDirective: GraphQLDirective;
 
 // type/introspection.js
 
-    var __Schema: GraphQLObjectType;
+var __Schema: GraphQLObjectType;
 
-    type TypeKind = {[key: string]: string};
+type TypeKind = {[key: string]: string};
 
-    var SchemaMetaFieldDef: GraphQLFieldDefinition;
+var SchemaMetaFieldDef: GraphQLFieldDefinition;
 
-    var TypeMetaFieldDef: GraphQLFieldDefinition;
+var TypeMetaFieldDef: GraphQLFieldDefinition;
 
-    var TypeNameMetaFieldDef: GraphQLFieldDefinition;
+var TypeNameMetaFieldDef: GraphQLFieldDefinition;
 
 // type/scalars.js
 
-    export var GraphQLInt: GraphQLScalarType;
-    export var GraphQLFloat: GraphQLScalarType;
-    export var GraphQLString: GraphQLScalarType;
-    export var GraphQLBoolean: GraphQLScalarType;
-    export var GraphQLID: GraphQLScalarType;
+export var GraphQLInt: GraphQLScalarType;
+export var GraphQLFloat: GraphQLScalarType;
+export var GraphQLString: GraphQLScalarType;
+export var GraphQLBoolean: GraphQLScalarType;
+export var GraphQLID: GraphQLScalarType;
 
 // type/schema.js
 
-    export class GraphQLSchema {
-        constructor(config: GraphQLSchemaConfig);
-        getQueryType(): GraphQLObjectType;
-        getMutationType(): GraphQLObjectType;
-        getSubscriptionType(): GraphQLObjectType;
-        getTypeMap(): TypeMap;
-        getType(name: string): GraphQLType;
-        getDirectives(): Array<GraphQLDirective>;
-        getDirective(name: string): GraphQLDirective;
-    }
-
-    type TypeMap = { [typeName: string]: GraphQLType };
-
-    interface GraphQLSchemaConfig {
-        query: GraphQLObjectType;
-        mutation?: GraphQLObjectType;
-        subscription?: GraphQLObjectType;
-        directives?: Array<GraphQLDirective>;
-    }
-
+export class GraphQLSchema {
+    constructor(config: GraphQLSchemaConfig);
+    getQueryType(): GraphQLObjectType;
+    getMutationType(): GraphQLObjectType;
+    getSubscriptionType(): GraphQLObjectType;
+    getTypeMap(): TypeMap;
+    getType(name: string): GraphQLType;
+    getDirectives(): Array<GraphQLDirective>;
+    getDirective(name: string): GraphQLDirective;
 }
+
+type TypeMap = { [typeName: string]: GraphQLType };
+
+interface GraphQLSchemaConfig {
+    query: GraphQLObjectType;
+    mutation?: GraphQLObjectType;
+    subscription?: GraphQLObjectType;
+    directives?: Array<GraphQLDirective>;
+}
+

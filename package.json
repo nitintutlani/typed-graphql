@@ -1,0 +1,19 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "Type definitions for graphql-js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nitintutlani/typed-graphql.git"
+  },
+  "author": "Nitin Tutlani <nitintutlani@yahoo.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NewSpring/typed-graphql/issues"
+  },
+  "homepage": "https://github.com/NewSpring/typed-graphql#readme"
+}
