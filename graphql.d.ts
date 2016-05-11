@@ -47,10 +47,10 @@ function syntaxError(source: Source, position: number, description: string): Gra
 
 interface ExecutionContext {
     schema: GraphQLSchema;
-    fragments: {[key: string]: FragmentDefinition};
+    fragments: { [key: string]: FragmentDefinition };
     rootValue: any;
     operation: OperationDefinition;
-    variableValues: {[key: string]: any};
+    variableValues: { [key: string]: any };
     errors: Array<GraphQLError>;
 }
 
@@ -63,7 +63,7 @@ function execute(
     schema: GraphQLSchema,
     documentAST: Document,
     rootValue?: any,
-    variableValues?: {[key: string]: any},
+    variableValues?: { [key: string]: any },
     operationName?: string
 ): Promise<ExecutionResult>;
 
@@ -87,12 +87,12 @@ function isNullish(value: any): boolean;
 function keyMap<T>(
     list: Array<T>,
     keyFn: (item: T) => string
-): {[key: string]: T};
+): { [key: string]: T };
 function keyValMap<T, V>(
     list: Array<T>,
     keyFn: (item: T) => string,
     valFn: (item: T) => V
-): {[key: string]: V}
+): { [key: string]: V }
 
 // language/ast.js
 interface Location {
@@ -102,37 +102,37 @@ interface Location {
 }
 
 type Node = Name
-             | Document
-             | OperationDefinition
-             | VariableDefinition
-             | Variable
-             | SelectionSet
-             | Field
-             | Argument
-             | FragmentSpread
-             | InlineFragment
-             | FragmentDefinition
-             | IntValue
-             | FloatValue
-             | StringValue
-             | BooleanValue
-             | EnumValue
-             | ListValue
-             | ObjectValue
-             | ObjectField
-             | Directive
-             | ListType
-             | NonNullType
-             | ObjectTypeDefinition
-             | FieldDefinition
-             | InputValueDefinition
-             | InterfaceTypeDefinition
-             | UnionTypeDefinition
-             | ScalarTypeDefinition
-             | EnumTypeDefinition
-             | EnumValueDefinition
-             | InputObjectTypeDefinition
-             | TypeExtensionDefinition;
+    | Document
+    | OperationDefinition
+    | VariableDefinition
+    | Variable
+    | SelectionSet
+    | Field
+    | Argument
+    | FragmentSpread
+    | InlineFragment
+    | FragmentDefinition
+    | IntValue
+    | FloatValue
+    | StringValue
+    | BooleanValue
+    | EnumValue
+    | ListValue
+    | ObjectValue
+    | ObjectField
+    | Directive
+    | ListType
+    | NonNullType
+    | ObjectTypeDefinition
+    | FieldDefinition
+    | InputValueDefinition
+    | InterfaceTypeDefinition
+    | UnionTypeDefinition
+    | ScalarTypeDefinition
+    | EnumTypeDefinition
+    | EnumValueDefinition
+    | InputObjectTypeDefinition
+    | TypeExtensionDefinition;
 
 interface Name {
     kind: string;
@@ -147,8 +147,8 @@ interface Document {
 }
 
 type Definition = OperationDefinition
-            | FragmentDefinition
-            | TypeDefinition;
+    | FragmentDefinition
+    | TypeDefinition;
 
 interface OperationDefinition {
     kind: string;
@@ -182,8 +182,8 @@ interface SelectionSet {
 }
 
 type Selection = Field
-            | FragmentSpread
-            | InlineFragment;
+    | FragmentSpread
+    | InlineFragment;
 
 interface Field {
     kind: string;
@@ -233,13 +233,13 @@ interface FragmentDefinition {
 // Values
 
 type Value = Variable
-            | IntValue
-            | FloatValue
-            | StringValue
-            | BooleanValue
-            | EnumValue
-            | ListValue
-            | ObjectValue;
+    | IntValue
+    | FloatValue
+    | StringValue
+    | BooleanValue
+    | EnumValue
+    | ListValue
+    | ObjectValue;
 
 interface IntValue {
     kind: string;
@@ -260,9 +260,9 @@ interface StringValue {
 }
 
 interface BooleanValue {
-kind: string;
-loc?: Location;
-value: boolean;
+    kind: string;
+    loc?: Location;
+    value: boolean;
 }
 
 interface EnumValue {
@@ -304,8 +304,8 @@ interface Directive {
 // Type Reference
 
 type Type = NamedType
-            | ListType
-            | NonNullType;
+    | ListType
+    | NonNullType;
 
 interface NamedType {
     kind: string;
@@ -328,12 +328,12 @@ interface NonNullType {
 // Type Definition
 
 type TypeDefinition = ObjectTypeDefinition
-                    | InterfaceTypeDefinition
-                    | UnionTypeDefinition
-                    | ScalarTypeDefinition
-                    | EnumTypeDefinition
-                    | InputObjectTypeDefinition
-                    | TypeExtensionDefinition;
+    | InterfaceTypeDefinition
+    | UnionTypeDefinition
+    | ScalarTypeDefinition
+    | EnumTypeDefinition
+    | InputObjectTypeDefinition
+    | TypeExtensionDefinition;
 
 interface ObjectTypeDefinition {
     kind: string;
@@ -472,7 +472,7 @@ type Lexer = (resetPosition?: number) => Token;
 
 function lex(source: Source): Lexer;
 
-type TokenKind = {[key: string]: number};
+type TokenKind = { [key: string]: number };
 
 function getTokenDesc(token: Token): string;
 function getTokenKindDesc(kind: number): string;
@@ -684,6 +684,7 @@ type GraphQLFieldConfigMapThunk = () => GraphQLFieldConfigMap;
 type GraphQLFieldResolveFn = (
     source?: any,
     args?: { [argName: string]: any },
+    context?: any,
     info?: GraphQLResolveInfo
 ) => any;
 
@@ -896,7 +897,7 @@ export var GraphQLSkipDirective: GraphQLDirective;
 
 var __Schema: GraphQLObjectType;
 
-type TypeKind = {[key: string]: string};
+type TypeKind = { [key: string]: string };
 
 var SchemaMetaFieldDef: GraphQLFieldDefinition;
 
