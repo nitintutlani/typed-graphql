@@ -5,6 +5,7 @@ export function graphql(
     schema: GraphQLSchema,
     requestString: string,
     rootValue?: any,
+    contextValue?: any,
     variableValues?: { [key: string]: any },
     operationName?: string
 ): Promise<GraphQLResult>;
@@ -683,6 +684,7 @@ type GraphQLFieldConfigMapThunk = () => GraphQLFieldConfigMap;
 type GraphQLFieldResolveFn = (
     source?: any,
     args?: { [argName: string]: any },
+    context?: any,
     info?: GraphQLResolveInfo
 ) => any;
 
