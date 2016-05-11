@@ -934,4 +934,3 @@ interface GraphQLSchemaConfig {
     subscription?: GraphQLObjectType;
     directives?: Array<GraphQLDirective>;
 }
-
