@@ -657,8 +657,8 @@ interface GraphQLScalarTypeConfig {
     name: string;
     description?: string;
     serialize: (value: any) => any;
-    parseValue: (value: any) => any;
-    parseLiteral: (valueAST: Value) => any;
+    parseValue?: (value: any) => any;
+    parseLiteral?: (valueAST: Value) => any;
 }
 
 export class GraphQLObjectType {
