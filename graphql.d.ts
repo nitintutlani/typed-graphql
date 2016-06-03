@@ -79,6 +79,14 @@ function getArgumentValues(
     variableValues: { [key: string]: any }
 ): { [key: string]: any };
 
+// validation/*.js
+
+function validate(
+    schema: GraphQLSchema,
+    ast: Document,
+    rules: Array<any>
+): Array<GraphQLError>;
+
 // jsutils/*.js
 
 function find<T>(list: Array<T>, predicate: (item: T) => boolean): T;
