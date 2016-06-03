@@ -63,6 +63,7 @@ function execute(
     schema: GraphQLSchema,
     documentAST: Document,
     rootValue?: any,
+    contextValue?: any,
     variableValues?: {[key: string]: any},
     operationName?: string
 ): Promise<ExecutionResult>;
