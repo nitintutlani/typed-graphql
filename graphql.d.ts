@@ -85,7 +85,7 @@ function getArgumentValues(
 function validate(
     schema: GraphQLSchema,
     ast: Document,
-    rules: Array<any>
+    rules?: Array<any>
 ): Array<GraphQLError>;
 
 // jsutils/*.js
