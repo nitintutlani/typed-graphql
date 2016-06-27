@@ -88,6 +88,8 @@ function validate(
     rules?: Array<any>
 ): Array<GraphQLError>;
 
+export var specifiedRules: Array<any>;
+
 // jsutils/*.js
 
 function find<T>(list: Array<T>, predicate: (item: T) => boolean): T;
