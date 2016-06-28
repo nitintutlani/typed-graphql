@@ -1,4 +1,3 @@
-
 // graphql.js
 
 export function graphql(
@@ -17,7 +16,7 @@ interface GraphQLResult {
 
 // error/*.js
 
-class GraphQLError extends Error {
+declare class GraphQLError extends Error {
     constructor(
         message: string,
         nodes?: Array<any>,
@@ -39,9 +38,9 @@ interface GraphQLErrorLocation {
     column: number
 }
 
-function locatedError(originalError: Error, nodes: Array<any>): GraphQLError;
+declare function locatedError(originalError: Error, nodes: Array<any>): GraphQLError;
 
-function syntaxError(source: Source, position: number, description: string): GraphQLError;
+declare function syntaxError(source: Source, position: number, description: string): GraphQLError;
 
 // execution/*.js
 
@@ -59,7 +58,7 @@ interface ExecutionResult {
     errors?: Array<GraphQLError>;
 }
 
-function execute(
+declare function execute(
     schema: GraphQLSchema,
     documentAST: Document,
     rootValue?: any,
@@ -68,13 +67,13 @@ function execute(
     operationName?: string
 ): Promise<ExecutionResult>;
 
-function getVariableValues(
+declare function getVariableValues(
     schema: GraphQLSchema,
     definitionASTs: Array<VariableDefinition>,
     inputs: { [key: string]: any }
 ): { [key: string]: any };
 
-function getArgumentValues(
+declare function getArgumentValues(
     argDefs: Array<GraphQLArgument>,
     argASTs: Array<Argument>,
     variableValues: { [key: string]: any }
@@ -82,22 +81,52 @@ function getArgumentValues(
 
 // validation/*.js
 
-function validate(
+type ValidationRule = (context: ValidationContext) => any;
+
+export function validate(
     schema: GraphQLSchema,
     ast: Document,
     rules?: Array<any>
 ): Array<GraphQLError>;
 
+export const specifiedRules: Array<ValidationRule>;
+
+type HasSelectionSet = OperationDefinition | FragmentDefinition;
+type VariableUsage = { node: Variable, type: GraphQLInputType };
+
+declare class ValidationContext {
+  constructor(schema: GraphQLSchema, ast: Document, typeInfo: TypeInfo);
+  reportError(error: GraphQLError): void;
+  getErrors(): Array<GraphQLError>;
+  getSchema(): GraphQLSchema;
+  getDocument(): Document;
+  getFragment(name: string): FragmentDefinition;
+  getFragmentSpreads(node: SelectionSet): Array<FragmentSpread>;
+  getRecursivelyReferencedFragments(
+    operation: OperationDefinition
+  ): Array<FragmentDefinition>;
+  getVariableUsages(node: HasSelectionSet): Array<VariableUsage>;
+  getRecursiveVariableUsages(
+    operation: OperationDefinition
+  ): Array<VariableUsage>;
+  getType(): GraphQLOutputType;
+  getParentType(): GraphQLCompositeType;
+  getInputType(): GraphQLInputType;
+  getFieldDef(): GraphQLFieldDefinition;
+  getDirective(): GraphQLDirective;
+  getArgument(): GraphQLArgument;
+}
+
 // jsutils/*.js
 
-function find<T>(list: Array<T>, predicate: (item: T) => boolean): T;
-function invariant(condition: any, message: string): void;
-function isNullish(value: any): boolean;
-function keyMap<T>(
+declare function find<T>(list: Array<T>, predicate: (item: T) => boolean): T;
+declare function invariant(condition: any, message: string): void;
+declare function isNullish(value: any): boolean;
+declare function keyMap<T>(
     list: Array<T>,
     keyFn: (item: T) => string
 ): {[key: string]: T};
-function keyValMap<T, V>(
+declare function keyValMap<T, V>(
     list: Array<T>,
     keyFn: (item: T) => string,
     valFn: (item: T) => V
@@ -416,57 +445,57 @@ interface TypeExtensionDefinition {
 
 // language/kinds.js
 
-const NAME: string;
+declare const NAME: string;
 
 // Document
 
-const DOCUMENT: string;
-const OPERATION_DEFINITION: string;
-const VARIABLE_DEFINITION: string;
-const VARIABLE: string;
-const SELECTION_SET: string;
-const FIELD: string;
-const ARGUMENT: string;
+declare const DOCUMENT: string;
+declare const OPERATION_DEFINITION: string;
+declare const VARIABLE_DEFINITION: string;
+declare const VARIABLE: string;
+declare const SELECTION_SET: string;
+declare const FIELD: string;
+declare const ARGUMENT: string;
 
 // Fragments
 
-const FRAGMENT_SPREAD: string;
-const INLINE_FRAGMENT: string;
-const FRAGMENT_DEFINITION: string;
+declare const FRAGMENT_SPREAD: string;
+declare const INLINE_FRAGMENT: string;
+declare const FRAGMENT_DEFINITION: string;
 
 // Values
 
-const INT: string;
-const FLOAT: string;
-const STRING: string;
-const BOOLEAN: string;
-const ENUM: string;
-const LIST: string;
-const OBJECT: string;
-const OBJECT_FIELD: string;
+declare const INT: string;
+declare const FLOAT: string;
+declare const STRING: string;
+declare const BOOLEAN: string;
+declare const ENUM: string;
+declare const LIST: string;
+declare const OBJECT: string;
+declare const OBJECT_FIELD: string;
 
 // Directives
 
-const DIRECTIVE: string;
+declare const DIRECTIVE: string;
 
 // Types
 
-const NAMED_TYPE: string;
-const LIST_TYPE: string;
-const NON_NULL_TYPE: string;
+declare const NAMED_TYPE: string;
+declare const LIST_TYPE: string;
+declare const NON_NULL_TYPE: string;
 
 // Type Definitions
 
-const OBJECT_TYPE_DEFINITION: string;
-const FIELD_DEFINITION: string;
-const INPUT_VALUE_DEFINITION: string;
-const INTERFACE_TYPE_DEFINITION: string;
-const UNION_TYPE_DEFINITION: string;
-const SCALAR_TYPE_DEFINITION: string;
-const ENUM_TYPE_DEFINITION: string;
-const ENUM_VALUE_DEFINITION: string;
-const INPUT_OBJECT_TYPE_DEFINITION: string;
-const TYPE_EXTENSION_DEFINITION: string;
+declare const OBJECT_TYPE_DEFINITION: string;
+declare const FIELD_DEFINITION: string;
+declare const INPUT_VALUE_DEFINITION: string;
+declare const INTERFACE_TYPE_DEFINITION: string;
+declare const UNION_TYPE_DEFINITION: string;
+declare const SCALAR_TYPE_DEFINITION: string;
+declare const ENUM_TYPE_DEFINITION: string;
+declare const ENUM_VALUE_DEFINITION: string;
+declare const INPUT_OBJECT_TYPE_DEFINITION: string;
+declare const TYPE_EXTENSION_DEFINITION: string;
 
 // language/lexer.js
 
@@ -479,12 +508,12 @@ interface Token {
 
 type Lexer = (resetPosition?: number) => Token;
 
-function lex(source: Source): Lexer;
+declare function lex(source: Source): Lexer;
 
 type TokenKind = {[key: string]: number};
 
-function getTokenDesc(token: Token): string;
-function getTokenKindDesc(kind: number): string;
+declare function getTokenDesc(token: Token): string;
+declare function getTokenKindDesc(kind: number): string;
 
 // language/location.js
 
@@ -493,7 +522,7 @@ interface SourceLocation {
     column: number;
 }
 
-function getLocation(source: Source, position: number): SourceLocation;
+declare function getLocation(source: Source, position: number): SourceLocation;
 
 // language/parser.js
 
@@ -502,29 +531,29 @@ interface ParseOptions {
     noSource?: boolean,
 }
 
-function parse(
+declare function parse(
     source: Source | string,
     options?: ParseOptions
 ): Document;
 
-function parseValue(
+declare function parseValue(
     source: Source | string,
     options?: ParseOptions
 ): Value;
 
-function parseConstValue(parser: any): Value;
+declare function parseConstValue(parser: any): Value;
 
-function parseType(parser: any): Type;
+declare function parseType(parser: any): Type;
 
-function parseNamedType(parser: any): NamedType;
+declare function parseNamedType(parser: any): NamedType;
 
 // language/printer.js
 
-function print(ast: any): string;
+declare function print(ast: any): string;
 
 // language/source.js
 
-class Source {
+declare class Source {
     body: string;
     name: string;
     constructor(body: string, name?: string);
@@ -573,13 +602,13 @@ interface QueryDocumentKeys {
     TypeExtensionDefinition: string[];
 }
 
-const BREAK: Object;
+declare const BREAK: Object;
 
-function visit(root: any, visitor: any, keyMap: any): any;
+declare function visit(root: any, visitor: any, keyMap: any): any;
 
-function visitInParallel(visitors: any): any;
+declare function visitInParallel(visitors: any): any;
 
-function visitWithTypeInfo(typeInfo: any, visitor: any): any;
+declare function visitWithTypeInfo(typeInfo: any, visitor: any): any;
 
 // type/definition.js
 
@@ -593,7 +622,7 @@ type GraphQLType =
     GraphQLList |
     GraphQLNonNull;
 
-function isType(type: any): boolean;
+declare function isType(type: any): boolean;
 
 type GraphQLInputType =
     GraphQLScalarType |
@@ -602,7 +631,7 @@ type GraphQLInputType =
     GraphQLList |
     GraphQLNonNull;
 
-function isInputType(type: GraphQLType): boolean;
+declare function isInputType(type: GraphQLType): boolean;
 
 type GraphQLOutputType =
     GraphQLScalarType |
@@ -613,26 +642,26 @@ type GraphQLOutputType =
     GraphQLList |
     GraphQLNonNull;
 
-function isOutputType(type: GraphQLType): boolean;
+declare function isOutputType(type: GraphQLType): boolean;
 
 type GraphQLLeafType =
     GraphQLScalarType |
     GraphQLEnumType;
 
-function isLeafType(type: GraphQLType): boolean;
+declare function isLeafType(type: GraphQLType): boolean;
 
 type GraphQLCompositeType =
     GraphQLObjectType |
     GraphQLInterfaceType |
     GraphQLUnionType;
 
-function isCompositeType(type: GraphQLType): boolean;
+declare function isCompositeType(type: GraphQLType): boolean;
 
 type GraphQLAbstractType =
     GraphQLInterfaceType |
     GraphQLUnionType;
 
-function isAbstractType(type: GraphQLType): boolean;
+declare function isAbstractType(type: GraphQLType): boolean;
 
 type GraphQLNullableType =
     GraphQLScalarType |
@@ -643,7 +672,7 @@ type GraphQLNullableType =
     GraphQLInputObjectType |
     GraphQLList;
 
-function getNullableType(type: GraphQLType): GraphQLNullableType;
+declare function getNullableType(type: GraphQLType): GraphQLNullableType;
 
 type GraphQLNamedType =
     GraphQLScalarType |
@@ -653,7 +682,7 @@ type GraphQLNamedType =
     GraphQLEnumType |
     GraphQLInputObjectType;
 
-function getNamedType(type: GraphQLType): GraphQLNamedType;
+declare function getNamedType(type: GraphQLType): GraphQLNamedType;
 
 export class GraphQLScalarType {
     constructor(config: GraphQLScalarTypeConfig);
@@ -879,7 +908,7 @@ export class GraphQLNonNull {
 
 // type/directives.js
 
-class GraphQLDirective {
+declare class GraphQLDirective {
     name: string;
     description: string;
     args: Array<GraphQLArgument>;
@@ -904,15 +933,15 @@ export var GraphQLSkipDirective: GraphQLDirective;
 
 // type/introspection.js
 
-var __Schema: GraphQLObjectType;
+declare var __Schema: GraphQLObjectType;
 
 type TypeKind = {[key: string]: string};
 
-var SchemaMetaFieldDef: GraphQLFieldDefinition;
+declare var SchemaMetaFieldDef: GraphQLFieldDefinition;
 
-var TypeMetaFieldDef: GraphQLFieldDefinition;
+declare var TypeMetaFieldDef: GraphQLFieldDefinition;
 
-var TypeNameMetaFieldDef: GraphQLFieldDefinition;
+declare var TypeNameMetaFieldDef: GraphQLFieldDefinition;
 
 // type/scalars.js
 
@@ -944,3 +973,26 @@ interface GraphQLSchemaConfig {
     directives?: Array<GraphQLDirective>;
 }
 
+// utilities/Typeinfo.js
+
+declare class TypeInfo {
+  constructor(
+    schema: GraphQLSchema,
+    getFieldDefFn?: typeof getFieldDef
+  );
+
+  getType(): GraphQLOutputType;
+  getParentType(): GraphQLCompositeType;
+  getInputType(): GraphQLInputType;
+  getFieldDef(): GraphQLFieldDefinition;
+  getDirective(): GraphQLDirective;
+  getArgument(): GraphQLArgument;
+  enter(node: Node);
+  leave(node: Node);
+}
+
+declare function getFieldDef(
+  schema: GraphQLSchema,
+  parentType: GraphQLType,
+  fieldAST: Field
+): GraphQLFieldDefinition;
