@@ -29,13 +29,13 @@ declare class GraphQLError extends Error {
 export function formatError(error: GraphQLError): GraphQLFormattedError;
 
 interface GraphQLFormattedError {
-    message: string,
-    locations: Array<GraphQLErrorLocation>
+    message: string;
+    locations: Array<GraphQLErrorLocation>;
 }
 
 interface GraphQLErrorLocation {
-    line: number,
-    column: number
+    line: number;
+    column: number;
 }
 
 declare function locatedError(originalError: Error, nodes: Array<any>): GraphQLError;
@@ -136,7 +136,7 @@ declare function keyValMap<T, V>(
 interface Location {
     start: number;
     end: number;
-    source?: Source
+    source?: Source;
 }
 
 type Node = Name
@@ -527,8 +527,8 @@ declare function getLocation(source: Source, position: number): SourceLocation;
 // language/parser.js
 
 interface ParseOptions {
-    noLocation?: boolean,
-    noSource?: boolean,
+    noLocation?: boolean;
+    noSource?: boolean;
 }
 
 declare function parse(
@@ -712,7 +712,7 @@ interface GraphQLObjectTypeConfig {
     interfaces?: GraphQLInterfacesThunk | Array<GraphQLInterfaceType>;
     fields: GraphQLFieldConfigMapThunk | GraphQLFieldConfigMap;
     isTypeOf?: (value: any, info?: GraphQLResolveInfo) => boolean;
-    description?: string
+    description?: string;
 }
 
 type GraphQLInterfacesThunk = () => Array<GraphQLInterfaceType>;
@@ -727,15 +727,15 @@ type GraphQLFieldResolveFn = (
 ) => any;
 
 interface GraphQLResolveInfo {
-    fieldName: string,
-    fieldASTs: Array<Field>,
-    returnType: GraphQLOutputType,
-    parentType: GraphQLCompositeType,
-    schema: GraphQLSchema,
-    fragments: { [fragmentName: string]: FragmentDefinition },
-    rootValue: any,
-    operation: OperationDefinition,
-    variableValues: { [variableName: string]: any },
+    fieldName: string;
+    fieldASTs: Array<Field>;
+    returnType: GraphQLOutputType;
+    parentType: GraphQLCompositeType;
+    schema: GraphQLSchema;
+    fragments: { [fragmentName: string]: FragmentDefinition };
+    rootValue: any;
+    operation: OperationDefinition;
+    variableValues: { [variableName: string]: any };
 }
 
 interface GraphQLFieldConfig {
@@ -812,8 +812,8 @@ export class GraphQLUnionType {
 
 
 interface GraphQLUnionTypeConfig {
-    name: string,
-    types: Array<GraphQLObjectType>,
+    name: string;
+    types: Array<GraphQLObjectType>;
     /**
      * Optionally provide a custom type resolver function. If one is not provided,
      * the default implementation will call `isTypeOf` on each implementing
