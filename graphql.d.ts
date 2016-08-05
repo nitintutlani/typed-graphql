@@ -996,3 +996,138 @@ declare function getFieldDef(
   parentType: GraphQLType,
   fieldAST: Field
 ): GraphQLFieldDefinition;
+
+// utilities/buildASTSchema.js
+declare function buildASTSchema(ast: Document): GraphQLSchema
+
+// type/directives.js
+declare enum DirectiveLocationEnum {
+  QUERY,
+  MUTATION,
+  SUBSCRIPTION,
+  FIELD,
+  FRAGMENT_DEFINITION,
+  FRAGMENT_SPREAD,
+  INLINE_FRAGMENT,
+}
+
+// utilities/introspectionQuery
+export const introspectionQuery: string;
+
+interface IntrospectionQuery {
+  __schema: IntrospectionSchema;
+}
+
+interface IntrospectionSchema {
+  queryType: IntrospectionNamedTypeRef;
+  mutationType?: IntrospectionNamedTypeRef;
+  subscriptionType?: IntrospectionNamedTypeRef;
+  types: Array<IntrospectionType>;
+  directives: Array<IntrospectionDirective>;
+}
+
+type IntrospectionType =
+  IntrospectionScalarType |
+  IntrospectionObjectType |
+  IntrospectionInterfaceType |
+  IntrospectionUnionType |
+  IntrospectionEnumType |
+  IntrospectionInputObjectType
+
+interface IntrospectionScalarType {
+  kind: 'SCALAR';
+  name: string;
+  description?: string;
+}
+
+interface IntrospectionObjectType {
+  kind: 'OBJECT';
+  name: string;
+  description?: string;
+  fields: Array<IntrospectionField>;
+  interfaces: Array<IntrospectionNamedTypeRef>;
+}
+
+interface IntrospectionInterfaceType {
+  kind: 'INTERFACE';
+  name: string;
+  description?: string;
+  fields: Array<IntrospectionField>;
+  possibleTypes: Array<IntrospectionNamedTypeRef>;
+}
+
+interface IntrospectionUnionType {
+  kind: 'UNION';
+  name: string;
+  description?: string;
+  possibleTypes: Array<IntrospectionNamedTypeRef>;
+}
+
+interface IntrospectionEnumType {
+  kind: 'ENUM';
+  name: string;
+  description?: string;
+  enumValues: Array<IntrospectionEnumValue>;
+}
+
+interface IntrospectionInputObjectType {
+  kind: 'INPUT_OBJECT';
+  name: string;
+  description?: string;
+  inputFields: Array<IntrospectionInputValue>;
+}
+
+type IntrospectionTypeRef =
+  IntrospectionNamedTypeRef |
+  IntrospectionListTypeRef |
+  IntrospectionNonNullTypeRef
+
+interface IntrospectionNamedTypeRef {
+  kind: string;
+  name: string;
+}
+
+interface IntrospectionListTypeRef {
+  kind: 'LIST';
+  ofType?: IntrospectionTypeRef;
+}
+
+interface IntrospectionNonNullTypeRef {
+  kind: 'NON_NULL';
+  ofType?: IntrospectionTypeRef;
+}
+
+interface IntrospectionField {
+  name: string;
+  description?: string;
+  args: Array<IntrospectionInputValue>;
+  type: IntrospectionTypeRef;
+  isDeprecated: boolean;
+  deprecationReason?: string;
+}
+
+interface IntrospectionInputValue {
+  name: string;
+  description?: string;
+  type: IntrospectionTypeRef;
+  defaultValue?: string;
+}
+
+interface IntrospectionEnumValue {
+  name: string;
+  description?: string;
+  isDeprecated: boolean;
+  deprecationReason?: string;
+}
+
+interface IntrospectionDirective {
+  name: string;
+  description?: string;
+  locations: Array<DirectiveLocationEnum>;
+  args: Array<IntrospectionInputValue>;
+}
+
+// utilities/buildClientSchema.js
+export function buildClientSchema(
+  introspection: IntrospectionQuery
+): GraphQLSchema
