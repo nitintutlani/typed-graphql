@@ -2,6 +2,17 @@
 
 The type definition for [`graphql-js`](https://github.com/graphql/graphql-js).
 
+## Install using npm for Typescript 2
+
+```bash
+npm install graphql-typings
+```
+
+Add this to a typings.d.ts file.
+```
+/// <reference types="graphql-typings" />
+```
+
 ## Install using [typings](https://www.npmjs.com/package/typings)
 
 ```bash
