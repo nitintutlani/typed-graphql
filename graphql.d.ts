@@ -996,6 +996,13 @@ declare module 'graphql' {
     parentType: GraphQLType,
     fieldAST: Field
     ): GraphQLFieldDefinition;
+    
+    // utilities/valueFromAST.js
+    function valueFromAST(
+        valueAST: Value,
+        type: GraphQLInputType,
+        variables: { [key: string]: any },
+    ): any;
 
     // utilities/buildASTSchema.js
     function buildASTSchema(ast: Document): GraphQLSchema
