@@ -1001,7 +1001,7 @@ declare module 'graphql' {
     function valueFromAST(
         valueAST: Value,
         type: GraphQLInputType,
-        variables: { [key: string]: any },
+        variables?: { [key: string]: any },
     ): any;
 
     // utilities/buildASTSchema.js
