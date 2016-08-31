@@ -971,7 +971,7 @@ declare module 'graphql' {
         mutation?: GraphQLObjectType;
         subscription?: GraphQLObjectType;
         directives?: Array<GraphQLDirective>;
-        types?: Array<GraphQLObjectType>;
+        types?: Array<GraphQLNamedType>;
     }
 
     // utilities/Typeinfo.js
