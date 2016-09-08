@@ -1012,8 +1012,8 @@ declare module 'graphql' {
     function extendSchema(schema: GraphQLSchema, documentAST: Document): GraphQLSchema
     
     // utilities/schemaPrinter.js
-    export function printSchema(schema: GraphQLSchema): string;
-    export function printIntrospectionSchema(schema: GraphQLSchema): string;
+    function printSchema(schema: GraphQLSchema): string;
+    function printIntrospectionSchema(schema: GraphQLSchema): string;
     
     // type/directives.js
     enum DirectiveLocationEnum {
