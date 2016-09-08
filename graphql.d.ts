@@ -988,8 +988,8 @@ declare module 'graphql' {
     getFieldDef(): GraphQLFieldDefinition;
     getDirective(): GraphQLDirective;
     getArgument(): GraphQLArgument;
-    enter(node: Node);
-    leave(node: Node);
+    enter(node: Node): void;
+    leave(node: Node): void;
     }
 
     function getFieldDef(
