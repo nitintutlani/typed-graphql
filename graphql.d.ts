@@ -1008,6 +1008,9 @@ declare module 'graphql' {
     // utilities/buildASTSchema.js
     function buildASTSchema(ast: Document): GraphQLSchema
 
+    // utilities/extendSchema.js
+    function extendSchema(schema: GraphQLSchema, documentAST: Document): GraphQLSchema
+
     // type/directives.js
     enum DirectiveLocationEnum {
     QUERY,
