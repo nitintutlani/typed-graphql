@@ -701,6 +701,7 @@ declare module 'graphql' {
     }
 
     export class GraphQLObjectType {
+        name: string;
         constructor(config: GraphQLObjectTypeConfig);
         getFields(): GraphQLFieldDefinitionMap;
         getInterfaces(): Array<GraphQLInterfaceType>;
