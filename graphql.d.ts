@@ -962,6 +962,7 @@ declare module 'graphql' {
         getType(name: string): GraphQLType;
         getDirectives(): Array<GraphQLDirective>;
         getDirective(name: string): GraphQLDirective;
+        getPossibleTypes(abstractType: GraphQLAbstractType): Array<GraphQLObjectType>;
     }
 
     type TypeMap = { [typeName: string]: GraphQLType };
@@ -1008,6 +1009,13 @@ declare module 'graphql' {
     // utilities/buildASTSchema.js
     function buildASTSchema(ast: Document): GraphQLSchema
 
+    // utilities/extendSchema.js
+    function extendSchema(schema: GraphQLSchema, documentAST: Document): GraphQLSchema
+    
+    // utilities/schemaPrinter.js
+    function printSchema(schema: GraphQLSchema): string;
+    function printIntrospectionSchema(schema: GraphQLSchema): string;
+    
     // type/directives.js
     enum DirectiveLocationEnum {
     QUERY,
