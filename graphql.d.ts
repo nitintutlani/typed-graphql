@@ -962,6 +962,7 @@ declare module 'graphql' {
         getType(name: string): GraphQLType;
         getDirectives(): Array<GraphQLDirective>;
         getDirective(name: string): GraphQLDirective;
+        getPossibleTypes(abstractType: GraphQLAbstractType): Array<GraphQLObjectType>;
     }
 
     type TypeMap = { [typeName: string]: GraphQLType };
