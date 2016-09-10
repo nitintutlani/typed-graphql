@@ -686,6 +686,7 @@ declare module 'graphql' {
     function getNamedType(type: GraphQLType): GraphQLNamedType;
 
     export class GraphQLScalarType {
+        name: string;
         constructor(config: GraphQLScalarTypeConfig);
         serialize(value: any): any;
         parseValue(value: any): any;
