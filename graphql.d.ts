@@ -807,9 +807,7 @@ declare module 'graphql' {
         description: string;
         resolveType: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
         constructor(config: GraphQLUnionTypeConfig);
-        getPossibleTypes(): Array<GraphQLObjectType>;
-        isPossibleType(type: GraphQLObjectType): boolean;
-        getObjectType(value: any, info: GraphQLResolveInfo): GraphQLObjectType;
+        getTypes(): Array<GraphQLObjectType>
         toString(): string;
     }
 
