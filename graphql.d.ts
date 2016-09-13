@@ -444,58 +444,59 @@ declare module 'graphql' {
     }
 
     // language/kinds.js
-
-    const NAME: string;
-
-    // Document
-
-    const DOCUMENT: string;
-    const OPERATION_DEFINITION: string;
-    const VARIABLE_DEFINITION: string;
-    const VARIABLE: string;
-    const SELECTION_SET: string;
-    const FIELD: string;
-    const ARGUMENT: string;
-
-    // Fragments
-
-    const FRAGMENT_SPREAD: string;
-    const INLINE_FRAGMENT: string;
-    const FRAGMENT_DEFINITION: string;
-
-    // Values
-
-    const INT: string;
-    const FLOAT: string;
-    const STRING: string;
-    const BOOLEAN: string;
-    const ENUM: string;
-    const LIST: string;
-    const OBJECT: string;
-    const OBJECT_FIELD: string;
-
-    // Directives
-
-    const DIRECTIVE: string;
-
-    // Types
-
-    const NAMED_TYPE: string;
-    const LIST_TYPE: string;
-    const NON_NULL_TYPE: string;
-
-    // Type Definitions
-
-    const OBJECT_TYPE_DEFINITION: string;
-    const FIELD_DEFINITION: string;
-    const INPUT_VALUE_DEFINITION: string;
-    const INTERFACE_TYPE_DEFINITION: string;
-    const UNION_TYPE_DEFINITION: string;
-    const SCALAR_TYPE_DEFINITION: string;
-    const ENUM_TYPE_DEFINITION: string;
-    const ENUM_VALUE_DEFINITION: string;
-    const INPUT_OBJECT_TYPE_DEFINITION: string;
-    const TYPE_EXTENSION_DEFINITION: string;
+    namespace Kind {
+        const NAME: string;
+    
+        // Document
+    
+        const DOCUMENT: string;
+        const OPERATION_DEFINITION: string;
+        const VARIABLE_DEFINITION: string;
+        const VARIABLE: string;
+        const SELECTION_SET: string;
+        const FIELD: string;
+        const ARGUMENT: string;
+    
+        // Fragments
+    
+        const FRAGMENT_SPREAD: string;
+        const INLINE_FRAGMENT: string;
+        const FRAGMENT_DEFINITION: string;
+    
+        // Values
+    
+        const INT: string;
+        const FLOAT: string;
+        const STRING: string;
+        const BOOLEAN: string;
+        const ENUM: string;
+        const LIST: string;
+        const OBJECT: string;
+        const OBJECT_FIELD: string;
+    
+        // Directives
+    
+        const DIRECTIVE: string;
+    
+        // Types
+    
+        const NAMED_TYPE: string;
+        const LIST_TYPE: string;
+        const NON_NULL_TYPE: string;
+    
+        // Type Definitions
+    
+        const OBJECT_TYPE_DEFINITION: string;
+        const FIELD_DEFINITION: string;
+        const INPUT_VALUE_DEFINITION: string;
+        const INTERFACE_TYPE_DEFINITION: string;
+        const UNION_TYPE_DEFINITION: string;
+        const SCALAR_TYPE_DEFINITION: string;
+        const ENUM_TYPE_DEFINITION: string;
+        const ENUM_VALUE_DEFINITION: string;
+        const INPUT_OBJECT_TYPE_DEFINITION: string;
+        const TYPE_EXTENSION_DEFINITION: string;
+    }
 
     // language/lexer.js
 
@@ -685,6 +686,7 @@ declare module 'graphql' {
     function getNamedType(type: GraphQLType): GraphQLNamedType;
 
     export class GraphQLScalarType {
+        name: string;
         constructor(config: GraphQLScalarTypeConfig);
         serialize(value: any): any;
         parseValue(value: any): any;
@@ -701,6 +703,7 @@ declare module 'graphql' {
     }
 
     export class GraphQLObjectType {
+        name: string;
         constructor(config: GraphQLObjectTypeConfig);
         getFields(): GraphQLFieldDefinitionMap;
         getInterfaces(): Array<GraphQLInterfaceType>;
@@ -804,9 +807,7 @@ declare module 'graphql' {
         description: string;
         resolveType: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
         constructor(config: GraphQLUnionTypeConfig);
-        getPossibleTypes(): Array<GraphQLObjectType>;
-        isPossibleType(type: GraphQLObjectType): boolean;
-        getObjectType(value: any, info: GraphQLResolveInfo): GraphQLObjectType;
+        getTypes(): Array<GraphQLObjectType>
         toString(): string;
     }
 
