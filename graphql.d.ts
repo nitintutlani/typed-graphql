@@ -714,7 +714,7 @@ declare module 'graphql' {
         name: string;
         interfaces?: GraphQLInterfacesThunk | Array<GraphQLInterfaceType>;
         fields: GraphQLFieldConfigMapThunk | GraphQLFieldConfigMap;
-        isTypeOf?: (value: any, info?: GraphQLResolveInfo) => boolean;
+        isTypeOf?: GraphQLIsTypeOfFn;
         description?: string;
     }
 
@@ -723,11 +723,23 @@ declare module 'graphql' {
     type GraphQLFieldConfigMapThunk = () => GraphQLFieldConfigMap;
 
     type GraphQLFieldResolveFn = (
-        source?: any,
-        args?: { [argName: string]: any },
-        context?: any,
-        info?: GraphQLResolveInfo
+      source: any,
+      args: {[argName: string]: any},
+      context: any,
+      info: GraphQLResolveInfo
     ) => any;
+
+    type GraphQLTypeResolveFn = (
+      value: any,
+      context: any,
+      info: GraphQLResolveInfo
+    ) => GraphQLObjectType;
+
+    export type GraphQLIsTypeOfFn = (
+      source: any,
+      context: any,
+      info: GraphQLResolveInfo
+    ) => boolean;
 
     interface GraphQLResolveInfo {
         fieldName: string;
@@ -786,7 +798,7 @@ declare module 'graphql' {
     export class GraphQLInterfaceType {
         name: string;
         description: string;
-        resolveType: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
+        resolveType: GraphQLTypeResolveFn;
         constructor(config: GraphQLInterfaceTypeConfig);
         getFields(): GraphQLFieldDefinitionMap;
         getPossibleTypes(): Array<GraphQLObjectType>;
@@ -798,14 +810,14 @@ declare module 'graphql' {
     interface GraphQLInterfaceTypeConfig {
         name: string;
         fields: GraphQLFieldConfigMapThunk | GraphQLFieldConfigMap;
-        resolveType?: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
+        resolveType?: GraphQLTypeResolveFn;
         description?: string;
     }
 
     export class GraphQLUnionType {
         name: string;
         description: string;
-        resolveType: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
+        resolveType: GraphQLTypeResolveFn;
         constructor(config: GraphQLUnionTypeConfig);
         getTypes(): Array<GraphQLObjectType>
         toString(): string;
@@ -820,7 +832,7 @@ declare module 'graphql' {
         * the default implementation will call `isTypeOf` on each implementing
         * Object type.
         */
-        resolveType?: (value: any, info?: GraphQLResolveInfo) => GraphQLObjectType;
+        resolveType?: GraphQLTypeResolveFn;
         description?: string;
     }
 
