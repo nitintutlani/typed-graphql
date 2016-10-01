@@ -1021,6 +1021,7 @@ declare module 'graphql' {
 
     // utilities/buildASTSchema.js
     function buildASTSchema(ast: Document): GraphQLSchema
+    function buildSchema(source: string | Source): GraphQLSchema 
 
     // utilities/extendSchema.js
     function extendSchema(schema: GraphQLSchema, documentAST: Document): GraphQLSchema
