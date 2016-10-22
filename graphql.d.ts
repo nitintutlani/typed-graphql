@@ -48,6 +48,7 @@ declare module 'graphql' {
         schema: GraphQLSchema;
         fragments: {[key: string]: FragmentDefinition};
         rootValue: any;
+        contextValue: any;
         operation: OperationDefinition;
         variableValues: {[key: string]: any};
         errors: Array<GraphQLError>;
@@ -189,7 +190,7 @@ declare module 'graphql' {
                 | TypeDefinition;
 
     interface OperationDefinition {
-        kind: string;
+        kind: "OperationDefinition";
         loc?: Location;
         // Note: subscription is an experimental non-spec addition.
         operation: string;
@@ -200,7 +201,7 @@ declare module 'graphql' {
     }
 
     interface VariableDefinition {
-        kind: string;
+        kind: "VariableDefinition";
         loc?: Location;
         variable: Variable;
         type: Type;
@@ -259,7 +260,7 @@ declare module 'graphql' {
     }
 
     interface FragmentDefinition {
-        kind: string;
+        kind: "FragmentDefinition";
         loc?: Location;
         name: Name;
         typeCondition: NamedType;
@@ -374,7 +375,7 @@ declare module 'graphql' {
                         | TypeExtensionDefinition;
 
     interface ObjectTypeDefinition {
-        kind: string;
+        kind: "ObjectTypeDefinition";
         loc?: Location;
         name: Name;
         interfaces?: Array<NamedType>;
@@ -382,7 +383,7 @@ declare module 'graphql' {
     }
 
     interface FieldDefinition {
-        kind: string;
+        kind: "FieldDefinition";
         loc?: Location;
         name: Name;
         arguments: Array<InputValueDefinition>;
@@ -390,7 +391,7 @@ declare module 'graphql' {
     }
 
     interface InputValueDefinition {
-        kind: string;
+        kind: "InputValueDefinition";
         loc?: Location;
         name: Name;
         type: Type;
@@ -398,104 +399,108 @@ declare module 'graphql' {
     }
 
     interface InterfaceTypeDefinition {
-        kind: string;
+        kind: "InterfaceTypeDefinition";
         loc?: Location;
         name: Name;
         fields: Array<FieldDefinition>;
     }
 
     interface UnionTypeDefinition {
-        kind: string;
+        kind: "UnionTypeDefinition";
         loc?: Location;
         name: Name;
         types: Array<NamedType>;
     }
 
     interface ScalarTypeDefinition {
-        kind: string;
+        kind: "ScalarTypeDefinition";
         loc?: Location;
         name: Name;
     }
 
     interface EnumTypeDefinition {
-        kind: string;
+        kind: "EnumTypeDefinition";
         loc?: Location;
         name: Name;
         values: Array<EnumValueDefinition>;
     }
 
     interface EnumValueDefinition {
-        kind: string;
+        kind: "EnumValueDefinition";
         loc?: Location;
         name: Name;
     }
 
     interface InputObjectTypeDefinition {
-        kind: string;
+        kind: "InputObjectTypeDefinition";
         loc?: Location;
         name: Name;
         fields: Array<InputValueDefinition>;
     }
 
     interface TypeExtensionDefinition {
-        kind: string;
+        kind: "TypeExtensionDefinition";
         loc?: Location;
         definition: ObjectTypeDefinition;
     }
 
     // language/kinds.js
     namespace Kind {
-        const NAME: string;
-    
+        const NAME: "Name";
+
         // Document
-    
-        const DOCUMENT: string;
-        const OPERATION_DEFINITION: string;
-        const VARIABLE_DEFINITION: string;
-        const VARIABLE: string;
-        const SELECTION_SET: string;
-        const FIELD: string;
-        const ARGUMENT: string;
-    
+
+        const DOCUMENT: "Document";
+        const OPERATION_DEFINITION: "OperationDefinition";
+        const VARIABLE_DEFINITION: "VariableDefinition";
+        const VARIABLE: "Variable";
+        const SELECTION_SET: "SelectionSet";
+        const FIELD: "Field";
+        const ARGUMENT: "Argument";
+
         // Fragments
-    
-        const FRAGMENT_SPREAD: string;
-        const INLINE_FRAGMENT: string;
-        const FRAGMENT_DEFINITION: string;
-    
+
+        const FRAGMENT_SPREAD: "FragmentSpread";
+        const INLINE_FRAGMENT: "InlineFragment";
+        const FRAGMENT_DEFINITION: "FragmentDefinition";
+
         // Values
-    
-        const INT: string;
-        const FLOAT: string;
-        const STRING: string;
-        const BOOLEAN: string;
-        const ENUM: string;
-        const LIST: string;
-        const OBJECT: string;
-        const OBJECT_FIELD: string;
-    
+
+        const INT: "IntValue";
+        const FLOAT: "FloatValue";
+        const STRING: "StringValue";
+        const BOOLEAN: "BooleanValue";
+        const ENUM: "EnumValue";
+        const LIST: "ListValue";
+        const OBJECT: "ObjectValue";
+        const OBJECT_FIELD: "ObjectField";
+
         // Directives
-    
-        const DIRECTIVE: string;
-    
+
+        const DIRECTIVE: "Directive";
+
         // Types
-    
-        const NAMED_TYPE: string;
-        const LIST_TYPE: string;
-        const NON_NULL_TYPE: string;
-    
+
+        const NAMED_TYPE: "NamedType";
+        const LIST_TYPE: "ListType";
+        const NON_NULL_TYPE: "NonNullType";
+
         // Type Definitions
-    
-        const OBJECT_TYPE_DEFINITION: string;
-        const FIELD_DEFINITION: string;
-        const INPUT_VALUE_DEFINITION: string;
-        const INTERFACE_TYPE_DEFINITION: string;
-        const UNION_TYPE_DEFINITION: string;
-        const SCALAR_TYPE_DEFINITION: string;
-        const ENUM_TYPE_DEFINITION: string;
-        const ENUM_VALUE_DEFINITION: string;
-        const INPUT_OBJECT_TYPE_DEFINITION: string;
-        const TYPE_EXTENSION_DEFINITION: string;
+
+        const OBJECT_TYPE_DEFINITION: "ObjectTypeDefinition";
+        const FIELD_DEFINITION: "FieldDefinition";
+        const INPUT_VALUE_DEFINITION: "InputValueDefinition";
+        const INTERFACE_TYPE_DEFINITION: "InterfaceTypeDefinition";
+        const UNION_TYPE_DEFINITION: "UnionTypeDefinition";
+        const SCALAR_TYPE_DEFINITION: "ScalarTypeDefinition";
+        const ENUM_TYPE_DEFINITION: "UnionTypeDefinition";
+        const ENUM_VALUE_DEFINITION: "EnumValueDefinition";
+        const INPUT_OBJECT_TYPE_DEFINITION: "InputObjectTypeDefinition";
+        const TYPE_EXTENSION_DEFINITION: "TypeExtensionDefinition";
+
+        // Directive Definitions
+
+        const DIRECTIVE_DEFINITION: 'DirectiveDefinition';
     }
 
     // language/lexer.js
@@ -1011,7 +1016,7 @@ declare module 'graphql' {
     parentType: GraphQLType,
     fieldAST: Field
     ): GraphQLFieldDefinition;
-    
+
     // utilities/valueFromAST.js
     function valueFromAST(
         valueAST: Value,
@@ -1021,15 +1026,15 @@ declare module 'graphql' {
 
     // utilities/buildASTSchema.js
     function buildASTSchema(ast: Document): GraphQLSchema
-    function buildSchema(source: string | Source): GraphQLSchema 
+    function buildSchema(source: string | Source): GraphQLSchema
 
     // utilities/extendSchema.js
     function extendSchema(schema: GraphQLSchema, documentAST: Document): GraphQLSchema
-    
+
     // utilities/schemaPrinter.js
     function printSchema(schema: GraphQLSchema): string;
     function printIntrospectionSchema(schema: GraphQLSchema): string;
-    
+
     // type/directives.js
     enum DirectiveLocationEnum {
     QUERY,
