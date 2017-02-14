@@ -4,7 +4,12 @@
   "description": "Type definitions for graphql-js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "tsc graphql.d.ts",
+    "test": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/es6-promise": "0.0.32",
+    "typescript": "^2.1.6"
   },
   "typings": "./graphql.d.ts",
   "repository": {
