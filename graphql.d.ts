@@ -1,5 +1,6 @@
 // graphql.js
-declare module 'graphql' {
+declare module graphql {
+
     export function graphql(
         schema: GraphQLSchema,
         requestString: string,
@@ -446,9 +447,9 @@ declare module 'graphql' {
     // language/kinds.js
     namespace Kind {
         const NAME: string;
-    
+
         // Document
-    
+
         const DOCUMENT: string;
         const OPERATION_DEFINITION: string;
         const VARIABLE_DEFINITION: string;
@@ -456,15 +457,15 @@ declare module 'graphql' {
         const SELECTION_SET: string;
         const FIELD: string;
         const ARGUMENT: string;
-    
+
         // Fragments
-    
+
         const FRAGMENT_SPREAD: string;
         const INLINE_FRAGMENT: string;
         const FRAGMENT_DEFINITION: string;
-    
+
         // Values
-    
+
         const INT: string;
         const FLOAT: string;
         const STRING: string;
@@ -473,19 +474,19 @@ declare module 'graphql' {
         const LIST: string;
         const OBJECT: string;
         const OBJECT_FIELD: string;
-    
+
         // Directives
-    
+
         const DIRECTIVE: string;
-    
+
         // Types
-    
+
         const NAMED_TYPE: string;
         const LIST_TYPE: string;
         const NON_NULL_TYPE: string;
-    
+
         // Type Definitions
-    
+
         const OBJECT_TYPE_DEFINITION: string;
         const FIELD_DEFINITION: string;
         const INPUT_VALUE_DEFINITION: string;
@@ -1011,7 +1012,7 @@ declare module 'graphql' {
     parentType: GraphQLType,
     fieldAST: Field
     ): GraphQLFieldDefinition;
-    
+
     // utilities/valueFromAST.js
     function valueFromAST(
         valueAST: Value,
@@ -1021,15 +1022,15 @@ declare module 'graphql' {
 
     // utilities/buildASTSchema.js
     function buildASTSchema(ast: Document): GraphQLSchema
-    function buildSchema(source: string | Source): GraphQLSchema 
+    function buildSchema(source: string | Source): GraphQLSchema
 
     // utilities/extendSchema.js
     function extendSchema(schema: GraphQLSchema, documentAST: Document): GraphQLSchema
-    
+
     // utilities/schemaPrinter.js
     function printSchema(schema: GraphQLSchema): string;
     function printIntrospectionSchema(schema: GraphQLSchema): string;
-    
+
     // type/directives.js
     enum DirectiveLocationEnum {
     QUERY,
@@ -1161,4 +1162,8 @@ declare module 'graphql' {
     export function buildClientSchema(
     introspection: IntrospectionQuery
     ): GraphQLSchema
+}
+
+declare module "graphql" {
+    export = graphql;
 }
