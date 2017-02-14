@@ -47,10 +47,10 @@ declare module graphql {
 
     interface ExecutionContext {
         schema: GraphQLSchema;
-        fragments: {[key: string]: FragmentDefinition};
+        fragments: { [key: string]: FragmentDefinition };
         rootValue: any;
         operation: OperationDefinition;
-        variableValues: {[key: string]: any};
+        variableValues: { [key: string]: any };
         errors: Array<GraphQLError>;
     }
 
@@ -64,7 +64,7 @@ declare module graphql {
         documentAST: Document,
         rootValue?: any,
         contextValue?: any,
-        variableValues?: {[key: string]: any},
+        variableValues?: { [key: string]: any },
         operationName?: string
     ): Promise<ExecutionResult>;
 
@@ -96,26 +96,26 @@ declare module graphql {
     type VariableUsage = { node: Variable, type: GraphQLInputType };
 
     class ValidationContext {
-    constructor(schema: GraphQLSchema, ast: Document, typeInfo: TypeInfo);
-    reportError(error: GraphQLError): void;
-    getErrors(): Array<GraphQLError>;
-    getSchema(): GraphQLSchema;
-    getDocument(): Document;
-    getFragment(name: string): FragmentDefinition;
-    getFragmentSpreads(node: SelectionSet): Array<FragmentSpread>;
-    getRecursivelyReferencedFragments(
-        operation: OperationDefinition
-    ): Array<FragmentDefinition>;
-    getVariableUsages(node: HasSelectionSet): Array<VariableUsage>;
-    getRecursiveVariableUsages(
-        operation: OperationDefinition
-    ): Array<VariableUsage>;
-    getType(): GraphQLOutputType;
-    getParentType(): GraphQLCompositeType;
-    getInputType(): GraphQLInputType;
-    getFieldDef(): GraphQLFieldDefinition;
-    getDirective(): GraphQLDirective;
-    getArgument(): GraphQLArgument;
+        constructor(schema: GraphQLSchema, ast: Document, typeInfo: TypeInfo);
+        reportError(error: GraphQLError): void;
+        getErrors(): Array<GraphQLError>;
+        getSchema(): GraphQLSchema;
+        getDocument(): Document;
+        getFragment(name: string): FragmentDefinition;
+        getFragmentSpreads(node: SelectionSet): Array<FragmentSpread>;
+        getRecursivelyReferencedFragments(
+            operation: OperationDefinition
+        ): Array<FragmentDefinition>;
+        getVariableUsages(node: HasSelectionSet): Array<VariableUsage>;
+        getRecursiveVariableUsages(
+            operation: OperationDefinition
+        ): Array<VariableUsage>;
+        getType(): GraphQLOutputType;
+        getParentType(): GraphQLCompositeType;
+        getInputType(): GraphQLInputType;
+        getFieldDef(): GraphQLFieldDefinition;
+        getDirective(): GraphQLDirective;
+        getArgument(): GraphQLArgument;
     }
 
     // jsutils/*.js
@@ -126,12 +126,12 @@ declare module graphql {
     function keyMap<T>(
         list: Array<T>,
         keyFn: (item: T) => string
-    ): {[key: string]: T};
+    ): { [key: string]: T };
     function keyValMap<T, V>(
         list: Array<T>,
         keyFn: (item: T) => string,
         valFn: (item: T) => V
-    ): {[key: string]: V}
+    ): { [key: string]: V }
 
     // language/ast.js
     interface Location {
@@ -141,37 +141,37 @@ declare module graphql {
     }
 
     type Node = Name
-                | Document
-                | OperationDefinition
-                | VariableDefinition
-                | Variable
-                | SelectionSet
-                | Field
-                | Argument
-                | FragmentSpread
-                | InlineFragment
-                | FragmentDefinition
-                | IntValue
-                | FloatValue
-                | StringValue
-                | BooleanValue
-                | EnumValue
-                | ListValue
-                | ObjectValue
-                | ObjectField
-                | Directive
-                | ListType
-                | NonNullType
-                | ObjectTypeDefinition
-                | FieldDefinition
-                | InputValueDefinition
-                | InterfaceTypeDefinition
-                | UnionTypeDefinition
-                | ScalarTypeDefinition
-                | EnumTypeDefinition
-                | EnumValueDefinition
-                | InputObjectTypeDefinition
-                | TypeExtensionDefinition;
+        | Document
+        | OperationDefinition
+        | VariableDefinition
+        | Variable
+        | SelectionSet
+        | Field
+        | Argument
+        | FragmentSpread
+        | InlineFragment
+        | FragmentDefinition
+        | IntValue
+        | FloatValue
+        | StringValue
+        | BooleanValue
+        | EnumValue
+        | ListValue
+        | ObjectValue
+        | ObjectField
+        | Directive
+        | ListType
+        | NonNullType
+        | ObjectTypeDefinition
+        | FieldDefinition
+        | InputValueDefinition
+        | InterfaceTypeDefinition
+        | UnionTypeDefinition
+        | ScalarTypeDefinition
+        | EnumTypeDefinition
+        | EnumValueDefinition
+        | InputObjectTypeDefinition
+        | TypeExtensionDefinition;
 
     interface Name {
         kind: string;
@@ -186,8 +186,8 @@ declare module graphql {
     }
 
     type Definition = OperationDefinition
-                | FragmentDefinition
-                | TypeDefinition;
+        | FragmentDefinition
+        | TypeDefinition;
 
     interface OperationDefinition {
         kind: string;
@@ -221,8 +221,8 @@ declare module graphql {
     }
 
     type Selection = Field
-                | FragmentSpread
-                | InlineFragment;
+        | FragmentSpread
+        | InlineFragment;
 
     interface Field {
         kind: string;
@@ -272,13 +272,13 @@ declare module graphql {
     // Values
 
     type Value = Variable
-                | IntValue
-                | FloatValue
-                | StringValue
-                | BooleanValue
-                | EnumValue
-                | ListValue
-                | ObjectValue;
+        | IntValue
+        | FloatValue
+        | StringValue
+        | BooleanValue
+        | EnumValue
+        | ListValue
+        | ObjectValue;
 
     interface IntValue {
         kind: string;
@@ -299,9 +299,9 @@ declare module graphql {
     }
 
     interface BooleanValue {
-    kind: string;
-    loc?: Location;
-    value: boolean;
+        kind: string;
+        loc?: Location;
+        value: boolean;
     }
 
     interface EnumValue {
@@ -343,8 +343,8 @@ declare module graphql {
     // Type Reference
 
     type Type = NamedType
-                | ListType
-                | NonNullType;
+        | ListType
+        | NonNullType;
 
     interface NamedType {
         kind: string;
@@ -367,12 +367,12 @@ declare module graphql {
     // Type Definition
 
     type TypeDefinition = ObjectTypeDefinition
-                        | InterfaceTypeDefinition
-                        | UnionTypeDefinition
-                        | ScalarTypeDefinition
-                        | EnumTypeDefinition
-                        | InputObjectTypeDefinition
-                        | TypeExtensionDefinition;
+        | InterfaceTypeDefinition
+        | UnionTypeDefinition
+        | ScalarTypeDefinition
+        | EnumTypeDefinition
+        | InputObjectTypeDefinition
+        | TypeExtensionDefinition;
 
     interface ObjectTypeDefinition {
         kind: string;
@@ -512,7 +512,7 @@ declare module graphql {
 
     function lex(source: Source): Lexer;
 
-    type TokenKind = {[key: string]: number};
+    type TokenKind = { [key: string]: number };
 
     function getTokenDesc(token: Token): string;
     function getTokenKindDesc(kind: number): string;
@@ -724,22 +724,22 @@ declare module graphql {
     type GraphQLFieldConfigMapThunk = () => GraphQLFieldConfigMap;
 
     type GraphQLFieldResolveFn = (
-      source: any,
-      args: {[argName: string]: any},
-      context: any,
-      info: GraphQLResolveInfo
+        source: any,
+        args: { [argName: string]: any },
+        context: any,
+        info: GraphQLResolveInfo
     ) => any;
 
     type GraphQLTypeResolveFn = (
-      value: any,
-      context: any,
-      info: GraphQLResolveInfo
+        value: any,
+        context: any,
+        info: GraphQLResolveInfo
     ) => GraphQLObjectType;
 
     export type GraphQLIsTypeOfFn = (
-      source: any,
-      context: any,
-      info: GraphQLResolveInfo
+        source: any,
+        context: any,
+        info: GraphQLResolveInfo
     ) => boolean;
 
     interface GraphQLResolveInfo {
@@ -949,7 +949,7 @@ declare module graphql {
 
     var __Schema: GraphQLObjectType;
 
-    type TypeKind = {[key: string]: string};
+    type TypeKind = { [key: string]: string };
 
     var SchemaMetaFieldDef: GraphQLFieldDefinition;
 
@@ -992,25 +992,25 @@ declare module graphql {
     // utilities/Typeinfo.js
 
     class TypeInfo {
-    constructor(
-        schema: GraphQLSchema,
-        getFieldDefFn?: typeof getFieldDef
-    );
+        constructor(
+            schema: GraphQLSchema,
+            getFieldDefFn?: typeof getFieldDef
+        );
 
-    getType(): GraphQLOutputType;
-    getParentType(): GraphQLCompositeType;
-    getInputType(): GraphQLInputType;
-    getFieldDef(): GraphQLFieldDefinition;
-    getDirective(): GraphQLDirective;
-    getArgument(): GraphQLArgument;
-    enter(node: Node): void;
-    leave(node: Node): void;
+        getType(): GraphQLOutputType;
+        getParentType(): GraphQLCompositeType;
+        getInputType(): GraphQLInputType;
+        getFieldDef(): GraphQLFieldDefinition;
+        getDirective(): GraphQLDirective;
+        getArgument(): GraphQLArgument;
+        enter(node: Node): void;
+        leave(node: Node): void;
     }
 
     function getFieldDef(
-    schema: GraphQLSchema,
-    parentType: GraphQLType,
-    fieldAST: Field
+        schema: GraphQLSchema,
+        parentType: GraphQLType,
+        fieldAST: Field
     ): GraphQLFieldDefinition;
 
     // utilities/valueFromAST.js
@@ -1033,134 +1033,134 @@ declare module graphql {
 
     // type/directives.js
     enum DirectiveLocationEnum {
-    QUERY,
-    MUTATION,
-    SUBSCRIPTION,
-    FIELD,
-    FRAGMENT_DEFINITION,
-    FRAGMENT_SPREAD,
-    INLINE_FRAGMENT,
+        QUERY,
+        MUTATION,
+        SUBSCRIPTION,
+        FIELD,
+        FRAGMENT_DEFINITION,
+        FRAGMENT_SPREAD,
+        INLINE_FRAGMENT,
     }
 
     // utilities/introspectionQuery
     export const introspectionQuery: string;
 
     interface IntrospectionQuery {
-    __schema: IntrospectionSchema;
+        __schema: IntrospectionSchema;
     }
 
     interface IntrospectionSchema {
-    queryType: IntrospectionNamedTypeRef;
-    mutationType?: IntrospectionNamedTypeRef;
-    subscriptionType?: IntrospectionNamedTypeRef;
-    types: Array<IntrospectionType>;
-    directives: Array<IntrospectionDirective>;
+        queryType: IntrospectionNamedTypeRef;
+        mutationType?: IntrospectionNamedTypeRef;
+        subscriptionType?: IntrospectionNamedTypeRef;
+        types: Array<IntrospectionType>;
+        directives: Array<IntrospectionDirective>;
     }
 
     type IntrospectionType =
-    IntrospectionScalarType |
-    IntrospectionObjectType |
-    IntrospectionInterfaceType |
-    IntrospectionUnionType |
-    IntrospectionEnumType |
-    IntrospectionInputObjectType
+        IntrospectionScalarType |
+        IntrospectionObjectType |
+        IntrospectionInterfaceType |
+        IntrospectionUnionType |
+        IntrospectionEnumType |
+        IntrospectionInputObjectType
 
     interface IntrospectionScalarType {
-    kind: 'SCALAR';
-    name: string;
-    description?: string;
+        kind: 'SCALAR';
+        name: string;
+        description?: string;
     }
 
     interface IntrospectionObjectType {
-    kind: 'OBJECT';
-    name: string;
-    description?: string;
-    fields: Array<IntrospectionField>;
-    interfaces: Array<IntrospectionNamedTypeRef>;
+        kind: 'OBJECT';
+        name: string;
+        description?: string;
+        fields: Array<IntrospectionField>;
+        interfaces: Array<IntrospectionNamedTypeRef>;
     }
 
     interface IntrospectionInterfaceType {
-    kind: 'INTERFACE';
-    name: string;
-    description?: string;
-    fields: Array<IntrospectionField>;
-    possibleTypes: Array<IntrospectionNamedTypeRef>;
+        kind: 'INTERFACE';
+        name: string;
+        description?: string;
+        fields: Array<IntrospectionField>;
+        possibleTypes: Array<IntrospectionNamedTypeRef>;
     }
 
     interface IntrospectionUnionType {
-    kind: 'UNION';
-    name: string;
-    description?: string;
-    possibleTypes: Array<IntrospectionNamedTypeRef>;
+        kind: 'UNION';
+        name: string;
+        description?: string;
+        possibleTypes: Array<IntrospectionNamedTypeRef>;
     }
 
     interface IntrospectionEnumType {
-    kind: 'ENUM';
-    name: string;
-    description?: string;
-    enumValues: Array<IntrospectionEnumValue>;
+        kind: 'ENUM';
+        name: string;
+        description?: string;
+        enumValues: Array<IntrospectionEnumValue>;
     }
 
     interface IntrospectionInputObjectType {
-    kind: 'INPUT_OBJECT';
-    name: string;
-    description?: string;
-    inputFields: Array<IntrospectionInputValue>;
+        kind: 'INPUT_OBJECT';
+        name: string;
+        description?: string;
+        inputFields: Array<IntrospectionInputValue>;
     }
 
     type IntrospectionTypeRef =
-    IntrospectionNamedTypeRef |
-    IntrospectionListTypeRef |
-    IntrospectionNonNullTypeRef
+        IntrospectionNamedTypeRef |
+        IntrospectionListTypeRef |
+        IntrospectionNonNullTypeRef
 
     interface IntrospectionNamedTypeRef {
-    kind: string;
-    name: string;
+        kind: string;
+        name: string;
     }
 
     interface IntrospectionListTypeRef {
-    kind: 'LIST';
-    ofType?: IntrospectionTypeRef;
+        kind: 'LIST';
+        ofType?: IntrospectionTypeRef;
     }
 
     interface IntrospectionNonNullTypeRef {
-    kind: 'NON_NULL';
-    ofType?: IntrospectionTypeRef;
+        kind: 'NON_NULL';
+        ofType?: IntrospectionTypeRef;
     }
 
     interface IntrospectionField {
-    name: string;
-    description?: string;
-    args: Array<IntrospectionInputValue>;
-    type: IntrospectionTypeRef;
-    isDeprecated: boolean;
-    deprecationReason?: string;
+        name: string;
+        description?: string;
+        args: Array<IntrospectionInputValue>;
+        type: IntrospectionTypeRef;
+        isDeprecated: boolean;
+        deprecationReason?: string;
     }
 
     interface IntrospectionInputValue {
-    name: string;
-    description?: string;
-    type: IntrospectionTypeRef;
-    defaultValue?: string;
+        name: string;
+        description?: string;
+        type: IntrospectionTypeRef;
+        defaultValue?: string;
     }
 
     interface IntrospectionEnumValue {
-    name: string;
-    description?: string;
-    isDeprecated: boolean;
-    deprecationReason?: string;
+        name: string;
+        description?: string;
+        isDeprecated: boolean;
+        deprecationReason?: string;
     }
 
     interface IntrospectionDirective {
-    name: string;
-    description?: string;
-    locations: Array<DirectiveLocationEnum>;
-    args: Array<IntrospectionInputValue>;
+        name: string;
+        description?: string;
+        locations: Array<DirectiveLocationEnum>;
+        args: Array<IntrospectionInputValue>;
     }
 
     // utilities/buildClientSchema.js
     export function buildClientSchema(
-    introspection: IntrospectionQuery
+        introspection: IntrospectionQuery
     ): GraphQLSchema
 }
 
